@@ -78,7 +78,7 @@
   /* ---------- Card grid ---------- */
   .grid{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(var(--cols, 3), 1fr);
     gap: 18px;
   }
 
@@ -133,6 +133,68 @@
     line-height: 1.7;
   }
 
+  /* ---------- Profile card ---------- */
+  .profile-card{
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    cursor: default;
+  }
+
+  .profile-card:hover,
+  .profile-card:focus-visible{
+    transform: none;
+    box-shadow: 0 18px 40px -22px rgba(36,84,199,0.35);
+  }
+
+  .avatar{
+    flex: none;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #EAF1FF 0%, var(--blue) 80%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    box-shadow: 0 8px 18px -8px rgba(36,84,199,0.6);
+  }
+
+  .profile-text{ text-align: left; }
+
+  .profile-name{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  .profile-tagline{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--blue-soft);
+    margin-top: 2px;
+  }
+
+  .profile-bio{
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    margin: 10px 0 0;
+  }
+
+  @media (max-width: 520px){
+    .profile-card{
+      flex-direction: column;
+      text-align: center;
+    }
+    .profile-text{ text-align: center; }
+  }
+
   .card:hover,
   .card:focus-visible{
     transform: translateY(-4px);
@@ -178,11 +240,20 @@
 
   <header class="hero">
     <h1>airmiya.jp</h1>
-    <p class="en">Research and Development.</p>
+    <p class="en">Research &amp; Development.</p>
     <p>開発ログと制作物はこちら。</p>
   </header>
 
-  <main class="grid" id="linkGrid"></main>
+  <main class="grid" id="linkGrid">
+    <div class="card profile-card">
+      <div class="avatar">A</div>
+      <div class="profile-text">
+        <div class="profile-name">airmiya</div>
+        <div class="profile-tagline">えあみや</div>
+        <p class="profile-bio">IT系の仕事の傍ら、Web・クラウド・インフラ・AIまで幅広く触るエンジニア。最近はLLMやAIによるキャラクター表現に関心があり、技術考察や個人制作のWebアプリ作りをしています。</p>
+      </div>
+    </div>
+  </main>
 
   <footer>&copy; <span id="year"></span> airmiya</footer>
 
@@ -221,6 +292,19 @@
   ];
 
   const grid = document.getElementById('linkGrid');
+
+  // カード枚数に応じて最もバランスの良い列数を決める
+  // 優先順位: maxCols から下に向かって「割り切れる」列数を探す。
+  // 見つからなければ maxCols（余りは最終行が埋まらない形で表示される）
+  function chooseColumns(count, maxCols = 3){
+    if (count <= 1) return 1;
+    for (let cols = maxCols; cols >= 2; cols--){
+      if (count % cols === 0) return cols;
+    }
+    return Math.min(count, maxCols);
+  }
+  grid.style.setProperty('--cols', chooseColumns(links.length, 3));
+
   links.forEach(link => {
     const a = document.createElement('a');
     a.className = 'card';
