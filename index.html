@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>airmiya.jp</title>
+<meta name="description" content="airmiya.jp - Research and Development.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F7F5EF;
+    --paper: #FFFFFF;
+    --ink: #1C1B19;
+    --ink-soft: #5B584F;
+    --navy: #1B2A56;
+    --blue: #2454C7;
+    --blue-soft: #4E7BE0;
+    --line: #DCD6C8;
+    --radius: 22px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ -webkit-font-smoothing: antialiased; }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    background-image:
+      radial-gradient(560px 420px at 8% -8%, rgba(36,84,199,0.16), transparent 65%),
+      radial-gradient(620px 480px at 100% 8%, rgba(78,123,224,0.16), transparent 60%),
+      radial-gradient(700px 520px at 50% 100%, rgba(36,84,199,0.10), transparent 65%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    min-height: 100vh;
+  }
+
+  .wrap{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: clamp(32px, 8vw, 88px) 24px 64px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    text-align: center;
+    margin-bottom: clamp(40px, 8vw, 72px);
+  }
+
+  .hero h1{
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    font-size: clamp(26px, 5vw, 38px);
+    margin: 0 0 10px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero p{
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin: 0;
+    line-height: 1.9;
+  }
+
+  .hero .en{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--navy-soft);
+    letter-spacing: 0.04em;
+    margin-top: 6px;
+  }
+
+  /* ---------- Card grid ---------- */
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 18px;
+  }
+
+  .card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 26px;
+    background:
+      linear-gradient(160deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6)),
+      linear-gradient(135deg, rgba(36,84,199,0.10), rgba(78,123,224,0.08));
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: var(--radius);
+    box-shadow: 0 18px 40px -22px rgba(36,84,199,0.35);
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: rise 0.5s ease forwards;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .icon{
+    width: 46px; height: 46px;
+    padding: 10px;
+    color: #fff;
+    background: linear-gradient(135deg, #EAF1FF 0%, var(--blue) 80%);
+    border-radius: 14px;
+    box-shadow: 0 8px 18px -8px rgba(36,84,199,0.6);
+  }
+  .icon svg{ width: 100%; height: 100%; }
+
+  .card .name{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+  }
+
+  .card .handle{
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: -12px;
+  }
+
+  .card .desc{
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  .card:hover,
+  .card:focus-visible{
+    transform: translateY(-4px);
+    box-shadow: 0 26px 50px -20px rgba(36,84,199,0.45);
+  }
+
+  .card:focus-visible{
+    outline: 2px solid var(--navy);
+    outline-offset: 2px;
+  }
+
+  @keyframes rise{
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  .grid .card:nth-child(1){ animation-delay: 0.05s; }
+  .grid .card:nth-child(2){ animation-delay: 0.12s; }
+  .grid .card:nth-child(3){ animation-delay: 0.19s; }
+  .grid .card:nth-child(4){ animation-delay: 0.26s; }
+  .grid .card:nth-child(5){ animation-delay: 0.33s; }
+  .grid .card:nth-child(6){ animation-delay: 0.40s; }
+
+  footer{
+    text-align: center;
+    margin-top: 64px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-family: 'Poppins', sans-serif;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .card{ animation: none; opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 420px){
+    .grid{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>airmiya.jp</h1>
+    <p class="en">Research and Development.</p>
+    <p>開発ログと制作物はこちら。</p>
+  </header>
+
+  <main class="grid" id="linkGrid"></main>
+
+  <footer>&copy; <span id="year"></span> airmiya</footer>
+
+</div>
+
+<script>
+  const links = [
+    {
+      name: "X",
+      handle: "@airmiya",
+      desc: "呼吸も この鼓動も 全部残してく",
+      url: "https://x.com/airmiya",
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 5l14 14M19 5L5 19" stroke-linecap="round"/></svg>`
+    },
+    {
+      name: "note",
+      handle: "airmiya",
+      desc: "noteでは少し整理して発信していきたいと思います。",
+      url: "https://note.com/airmiya",
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke-linejoin="round"/><path d="M9 12h6M9 16h6" stroke-linecap="round"/></svg>`
+    },
+    {
+      name: "Apps",
+      handle: "推し発狂ジェネレーター",
+      desc: "推しへの愛を叫ぼう",
+      url: "https://airmiya7.github.io/xpostgen/",
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 18l-2-2v-3l-3-1 3-1V8l2-2M16 18l2-2v-3l3-1-3-1V8l-2-2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 4l-4 16" stroke-linecap="round"/></svg>`
+    },
+    {
+      name: "Apps",
+      handle: "マイカ構文ジェネレーター",
+      desc: "マイカ構文を生成しよう",
+      url: "https://airmiya7.github.io/xpostgen/maika/",
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 18l-2-2v-3l-3-1 3-1V8l2-2M16 18l2-2v-3l3-1-3-1V8l-2-2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 4l-4 16" stroke-linecap="round"/></svg>`
+    }
+  ];
+
+  const grid = document.getElementById('linkGrid');
+  links.forEach(link => {
+    const a = document.createElement('a');
+    a.className = 'card';
+    a.href = link.url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.innerHTML = `
+      <div class="icon">${link.icon}</div>
+      <div class="name">${link.name}</div>
+      <div class="handle">${link.handle}</div>
+      <div class="desc">${link.desc}</div>
+    `;
+    grid.appendChild(a);
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
