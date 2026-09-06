@@ -48,15 +48,21 @@
   /* ---------- Hero ---------- */
   .hero{
     text-align: center;
-    margin-bottom: clamp(40px, 8vw, 72px);
+    margin-bottom: clamp(26px, 5.3vw, 48px);
   }
 
   .hero h1{
+    display: inline-block;
+    position: relative;
     font-family: 'Noto Sans JP', sans-serif;
     font-weight: 700;
     font-size: clamp(26px, 5vw, 38px);
     margin: 0 0 10px;
     letter-spacing: 0.02em;
+    color: var(--ink);
+    text-shadow:
+      0 1px 0 rgba(255,255,255,0.85),
+      0 -1px 1px rgba(27,42,86,0.28);
   }
 
   .hero p{
@@ -273,7 +279,7 @@
     </div>
   </main>
 
-  <footer>&copy; <span id="year"></span> airmiya</footer>
+  <footer>&copy;<span id="year"></span> airmiya</footer>
 
 </div>
 
