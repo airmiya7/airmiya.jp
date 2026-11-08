@@ -8,18 +8,18 @@
 <meta name="theme-color" content="#ffffff">
 <meta name="color-scheme" content="light">
 
-<!-- OGP：公開URLと画像が決まったら下の2行（og:url / og:image）のコメントを外して設定してください -->
+<!-- OGP：og:image は画像が決まったらコメントを外して設定してください（絶対URL） -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:site_name" content="村野製作所">
 <meta property="og:title" content="ゼロからつくる日野下インストール｜村野製作所">
 <meta property="og:description" content="日野下花帆の人格をAIで再現できるのか。ボトムアップ型AIの未来と可能性を探る技術同人誌。コミックマーケット1日目 西2 い31b。">
-<!-- <meta property="og:url" content="https://example.com/"> -->
+<meta property="og:url" content="https://airmiya.jp/murano">
 <!-- <meta property="og:image" content="https://example.com/ogp.png"> -->
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ゼロからつくる日野下インストール｜村野製作所">
 <meta name="twitter:description" content="日野下花帆の人格をAIで再現できるのか。技術同人誌の特設ページ。非公式ファン制作物。">
-<!-- <link rel="canonical" href="https://example.com/"> -->
+<link rel="canonical" href="https://airmiya.jp/murano">
 
 <style>
 /* ============================================================
@@ -71,7 +71,7 @@ a:hover{text-decoration-thickness:2px}
 /* ============================================================
    Header
    ============================================================ */
-.site-header{background:var(--paper);border-bottom:1px solid var(--line)}
+.site-header{background:#f7f7f7;border-bottom:1px solid var(--line)}
 .site-header .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 24px}
 .brand{
   font-family:var(--serif);font-weight:700;font-size:1.0625rem;letter-spacing:.06em;
@@ -305,9 +305,9 @@ a:hover{text-decoration-thickness:2px}
 /* ============================================================
    Footer
    ============================================================ */
-.site-footer{border-top:2px solid var(--line-strong);padding-block:48px 64px;font-size:.875rem;color:var(--ink-2)}
+.site-footer{background:#eeeeee;padding-block:48px 64px;font-size:.875rem;color:var(--ink-2)}
 .site-footer .wrap{display:grid;gap:16px}
-.site-footer p{max-width:46em;line-height:1.85}
+.site-footer p{max-width:none;line-height:1.85;text-wrap:pretty}
 .site-footer .fine{color:var(--ink-3);font-size:.8125rem}
 .to-top{display:inline-block;padding:8px 0}
 
@@ -346,11 +346,14 @@ a:hover{text-decoration-thickness:2px}
         <span>日野下インストール</span>
       </h1>
       <p class="hero-sub">ボトムアップ型AIの未来と可能性</p>
-      <p class="hero-note">日野下花帆の人格を、AIで再現できるのか。<span class="nb">その問いに技術の側から</span><span class="nb">向き合う一冊です。</span></p>
+      <p class="hero-note">
+        <span class="nb"></span>日野下花帆の人格を、AIで再現できるのか。
+        <span class="nb">その問いに技術の側から向き合う一冊です。</span>
+      </p>
 
       <div class="place">
         <span class="place-label">コミックマーケット　1日目（火）</span>
-        <span class="place-main">西2　い31b</span>
+        <span class="place-main">西2 い31b</span>
         <span class="place-sub">サークル名　村野製作所</span>
       </div>
 
@@ -429,7 +432,7 @@ a:hover{text-decoration-thickness:2px}
             </div>
           </div>
         </div>
-        <figcaption>下の層ほどデータに近く、上の層ほど外から見える。各要素をデータからどう読み取るかが、本書の主な論点です。</figcaption>
+        <figcaption>下の層ほどデータに近く、上の層ほど外から見える。<br>各要素をデータからどう読み取るかが、本書の主な論点です。</figcaption>
       </figure>
 
       <figure class="diagram">
@@ -457,7 +460,7 @@ a:hover{text-decoration-thickness:2px}
             <p class="result">本書が検証したいのはこちら。RAGなどの技術は、この構造を支える部品として使います。</p>
           </div>
         </div>
-        <figcaption>RAGは有用な手段ですが、それだけでは人格の再構築になりません。この区別が本書の出発点です。</figcaption>
+        <figcaption>RAGは有用な手段ですが、それだけでは人格の再構築になりません。<br>この区別が本書の出発点です。</figcaption>
       </figure>
     </div>
   </div>
@@ -517,7 +520,7 @@ a:hover{text-decoration-thickness:2px}
         <div class="cond-row last" role="listitem"><b>D</b><span>価値観カード＋RAG</span></div>
       </div>
       <div class="prose" style="margin-top:20px">
-        <p style="font-size:.9375rem;color:var(--ink-2)">応答の評価には、LLMを審査役に使う方法（LLM-as-a-Judge）も取り入れます。結果の読み方と限界は、本文で示します。</p>
+        <p style="font-size:.9375rem;color:var(--ink-2)">応答の評価には、LLMを審査役に使う方法（LLM-as-a-Judge）も取り入れます。<br>結果の読み方と限界は、本文で示します。</p>
       </div>
     </div>
   </div>
@@ -546,7 +549,7 @@ a:hover{text-decoration-thickness:2px}
           <li><b>LLMとRAGで組み立てる</b><span>人格モデルを与えたときの応答の変化を観察する</span></li>
           <li><b>条件を分けて比べる</b><span>4つの条件での比較と、評価の方法・限界</span></li>
         </ul>
-        <p class="pending" id="chapters-pending">章立ては確定次第、このページに掲載します。上は現時点で扱う予定の内容で、構成や順序は変わる場合があります。</p>
+        <p class="pending" id="chapters-pending">章立ては確定次第、このページに掲載します。<br>上は現時点で扱う予定の内容で、構成や順序は変わる場合があります。</p>
       </div>
     </div>
   </div>
@@ -564,7 +567,7 @@ a:hover{text-decoration-thickness:2px}
         <div><dt>サークル名</dt><dd class="strong">村野製作所</dd></div>
         <div><dt>イベント</dt><dd>コミックマーケット109</dd></div>
         <div data-optional="date" hidden><dt>開催日</dt><dd data-field="date"></dd></div>
-        <div><dt>配置</dt><dd class="strong">1日目（火）　西2　い31b</dd></div>
+        <div><dt>配置</dt><dd class="strong">1日目（火）　西2 い31b</dd></div>
         <div><dt>ジャンル</dt><dd>ラブライブ！</dd></div>
         <div><dt>頒布物</dt><dd>ゼロからつくる日野下インストール<small>ボトムアップ型AIの未来と可能性</small></dd></div>
         <div data-optional="price" hidden><dt>頒布価格</dt><dd data-field="price"></dd></div>
@@ -573,7 +576,7 @@ a:hover{text-decoration-thickness:2px}
         <div data-optional="sns" hidden><dt>お知らせ</dt><dd><ul class="links" id="sns"></ul></dd></div>
       </dl>
       <div class="prose" style="margin-top:32px">
-        <p style="font-size:.9375rem;color:var(--ink-2)">価格やページ数など未定の項目は、決まり次第このページに追加します。当日はお気軽にお立ち寄りください。</p>
+        <p style="font-size:.9375rem;color:var(--ink-2)">価格やページ数など未定の項目は決まり次第このページに追加します。<br>当日はお気軽にお立ち寄りください。</p>
       </div>
     </div>
   </div>
@@ -583,8 +586,9 @@ a:hover{text-decoration-thickness:2px}
 
 <footer class="site-footer">
   <div class="wrap">
-    <p><strong>本ページおよび頒布物は、非公式のファン制作物です。</strong>公式・関連企業・権利者とは一切関係がありません。</p>
-    <p>『ラブライブ！』シリーズに関する名称・キャラクター等の権利は、各権利者に帰属します。本ページには公式の画像・ロゴを使用していません。</p>
+    <p><strong>本ページおよび頒布物は、非公式のファン制作物です。</strong></p>
+    <p>公式・関連企業・権利者とは一切関係がありません。</p>
+    <p>『ラブライブ！』シリーズに関する名称・キャラクター等の権利は、各権利者に帰属します。<br>本ページには公式の画像・ロゴを使用していません。</p>
     <p class="fine">&copy; 村野製作所</p>
     <a class="to-top" href="#top">ページの先頭へ戻る</a>
   </div>
@@ -597,12 +601,12 @@ a:hover{text-decoration-thickness:2px}
    ============================================================ */
 var SITE = {
   date:  "2026年12月29日（火）",   // 開催日。違う場合・不要な場合は書き換え／空欄に
-  price: "",                        // 例："1,000円"
+  price: "",
   pages: "",                        // 例："120ページ"
-  url:   "",                        // 公開ページURL（https:// から）
+  url:   "https://airmiya.jp/murano", // 公開ページURL（https:// から）
   cover: { src: "", alt: "" },      // 表紙画像。例：{ src:"cover.jpg", alt:"『ゼロからつくる日野下インストール』表紙" }
   sns:   [                          // 例：{ label:"X（@account）", href:"https://x.com/account" }
-    // { label: "", href: "" }
+    { label: "X（airmiya）", href: "https://x.com/airmiya" }
   ],
   chapters: [                       // 例：{ title:"第1章　…", summary:"…" }
     // { title: "", summary: "" }
