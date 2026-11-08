@@ -21,6 +21,7 @@
 <meta name="twitter:description" content="日野下花帆の人格をAIで再現できるのか。技術同人誌の特設ページ。非公式ファン制作物。">
 <link rel="canonical" href="https://airmiya.jp/murano">
 
+<script>document.documentElement.classList.add("js")</script>
 <style>
 /* ============================================================
    Tokens
@@ -83,9 +84,38 @@ a:hover{text-decoration-thickness:2px}
   text-decoration:none;color:var(--ink-2);
 }
 .nav a:hover{color:var(--ink);text-decoration:underline}
+.site-header{position:sticky;top:0;z-index:50}
 @media (min-width:768px){
-  .site-header{position:sticky;top:0;z-index:50}
   .nav{gap:0 12px}
+}
+
+/* ハンバーガー（JS有効時のみ。JS無効時はナビをそのまま表示） */
+.menu-btn{display:none}
+.js .menu-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;margin-right:-11px;padding:0;
+  border:0;background:none;color:var(--ink);cursor:pointer;
+}
+.bars,.bars::before,.bars::after{display:block;width:22px;height:2px;background:currentColor}
+.bars{position:relative}
+.bars::before,.bars::after{content:"";position:absolute;left:0}
+.bars::before{top:-7px}
+.bars::after{top:7px}
+@media (prefers-reduced-motion:no-preference){
+  .bars,.bars::before,.bars::after{transition:transform .2s,top .2s,background-color .2s}
+}
+.menu-btn[aria-expanded="true"] .bars{background:transparent}
+.menu-btn[aria-expanded="true"] .bars::before{top:0;transform:rotate(45deg)}
+.menu-btn[aria-expanded="true"] .bars::after{top:0;transform:rotate(-45deg)}
+
+.js .nav{display:none;flex-basis:100%;flex-direction:column;gap:0;margin:0;border-top:1px solid var(--line)}
+.js .nav.open{display:flex}
+.js .nav a{padding:14px 0;font-size:1rem;border-bottom:1px solid var(--line)}
+.js .nav a:last-child{border-bottom:0}
+@media (min-width:768px){
+  .js .menu-btn{display:none}
+  .js .nav,.js .nav.open{display:flex;flex-basis:auto;flex-direction:row;gap:0 12px;margin-inline:-8px;border:0}
+  .js .nav a{padding:10px 8px;font-size:.875rem;border:0}
 }
 
 /* ============================================================
@@ -208,20 +238,21 @@ a:hover{text-decoration-thickness:2px}
 .stack .base ul{display:flex;flex-wrap:wrap;gap:4px 18px;color:var(--ink-2)}
 .stack .base li{display:block;padding:0;border:0}
 .stack-wrap{display:grid;gap:0}
+/* 軸（矢印）は全幅で表示。狭い端末では列幅・余白を詰める */
+.stack-wrap{grid-template-columns:24px minmax(0,1fr);gap:10px}
+.axis{
+  display:flex;flex-direction:column;justify-content:space-between;align-items:center;
+  font-size:.75rem;line-height:1.2;color:var(--ink-3);padding:2px 0;
+}
+.axis span{writing-mode:vertical-rl;letter-spacing:.1em;white-space:nowrap}
+.axis i{flex:1;width:1px;background:var(--ink-3);margin:8px 0;position:relative}
+.axis i::before{
+  content:"";position:absolute;top:0;left:-4px;border:4.5px solid transparent;
+  border-bottom:7px solid var(--ink-3);border-top:0;
+}
 @media (min-width:640px){
   .stack-wrap{grid-template-columns:44px minmax(0,1fr);gap:16px}
-  .axis{
-    display:flex;flex-direction:column;justify-content:space-between;align-items:center;
-    font-size:.75rem;color:var(--ink-3);padding:2px 0;
-  }
-  .axis span{writing-mode:vertical-rl;letter-spacing:.1em}
-  .axis i{flex:1;width:1px;background:var(--ink-3);margin:8px 0;position:relative}
-  .axis i::before{
-    content:"";position:absolute;top:0;left:-4px;border:4.5px solid transparent;
-    border-bottom:7px solid var(--ink-3);border-top:0;
-  }
 }
-@media (max-width:639px){.axis{display:none}}
 @media (max-width:420px){
   .stack li{grid-template-columns:1fr;gap:2px}
 }
@@ -324,7 +355,10 @@ a:hover{text-decoration-thickness:2px}
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="#top">村野製作所</a>
-    <nav class="nav" aria-label="ページ内ナビゲーション">
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="メニューを開く">
+      <span class="bars" aria-hidden="true"></span>
+    </button>
+    <nav class="nav" id="site-nav" aria-label="ページ内ナビゲーション">
       <a href="#about">企画</a>
       <a href="#concept">人格モデル</a>
       <a href="#technology">技術</a>
@@ -612,6 +646,27 @@ var SITE = {
     // { title: "", summary: "" }
   ]
 };
+
+/* ハンバーガーメニュー */
+(function(){
+  "use strict";
+  var btn = document.querySelector(".menu-btn");
+  var nav = document.getElementById("site-nav");
+  if(!btn || !nav) return;
+  var mq = window.matchMedia("(min-width:768px)");
+  function set(open){
+    nav.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    btn.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
+  }
+  btn.addEventListener("click", function(){ set(btn.getAttribute("aria-expanded") !== "true"); });
+  nav.addEventListener("click", function(e){ if(e.target.closest("a")) set(false); });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && btn.getAttribute("aria-expanded") === "true"){ set(false); btn.focus(); }
+  });
+  var onChange = function(){ if(mq.matches) set(false); };
+  if(mq.addEventListener) mq.addEventListener("change", onChange); else mq.addListener(onChange);
+})();
 
 (function(){
   "use strict";
