@@ -28,11 +28,29 @@ document.documentElement.classList.add("js");
 /* アニメーション版：動きを減らす設定の人・IntersectionObserver非対応環境では何もしない */
 (function(){
   var r = document.documentElement;
+  var q = location.search;
+  // 「視差効果を減らす／動きを減らす」設定を尊重するか。
+  //   true  … 設定がオンの人にはアニメーションを出さず静止表示（アクセシビリティ上の標準）
+  //   false … 設定に関わらず常にアニメーションを再生（現在）
+  var RESPECT_REDUCED_MOTION = false;
+  var force = !RESPECT_REDUCED_MOTION || /[?&]anim=(force|debug)/.test(q);            // ?anim=force … 「動きを減らす」設定を無視して再生（確認用）
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if(reduce || !("IntersectionObserver" in window)) return;
+  var state = "on";
+  if(!("IntersectionObserver" in window)) state = "no-io";
+  else if(reduce && !force) state = "reduced-motion";
+  r.setAttribute("data-anim", state);
+  if(/[?&]anim=debug/.test(q)){                              // ?anim=debug … 画面左下に状態を表示
+    document.addEventListener("DOMContentLoaded", function(){
+      var b = document.createElement("div");
+      b.style.cssText = "position:fixed;left:8px;bottom:8px;z-index:99;background:#000;color:#fff;font:12px/1.4 monospace;padding:4px 8px";
+      var t = function(){ b.textContent = "anim: " + r.getAttribute("data-anim") + (window.__animReady ? " / ready" : " / not-ready"); };
+      t(); document.body.appendChild(b); setInterval(t, 500);
+    });
+  }
+  if(state !== "on") return;
   r.classList.add("anim");
   // 安全装置：本体スクリプトが動かなかった場合、3秒後に非表示状態を解除
-  setTimeout(function(){ if(!window.__animReady) r.classList.remove("anim"); }, 3000);
+  setTimeout(function(){ if(!window.__animReady){ r.classList.remove("anim"); r.setAttribute("data-anim", "script-failed"); } }, 3000);
 })();
 </script>
 <style>
