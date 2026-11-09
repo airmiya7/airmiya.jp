@@ -176,7 +176,12 @@ a:hover{text-decoration-thickness:2px}
 }
 
 /* Cover */
-.cover{max-width:340px;width:100%;margin-inline:0}
+.cover{max-width:360px;width:100%;margin-inline:auto;text-align:center}
+.cover-frame{text-align:left;margin-left:10px} /* 狭い画面：枠そのものを中央に（影の分を左右に確保） */
+@media (min-width:860px){
+  .cover{margin-inline:0;text-align:left}
+  .cover-frame{margin-left:0}
+}
 .cover-frame{
   aspect-ratio:182/257; /* B5 */
   border:1px solid var(--ink);background:var(--wash);
