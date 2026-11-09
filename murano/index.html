@@ -161,6 +161,15 @@ a:hover{text-decoration-thickness:2px}
 }
 .place-label{font-size:.8125rem;color:var(--ink-3)}
 .place-main{font-family:var(--serif);font-weight:700;font-size:clamp(1.375rem,4.4vw,1.875rem);line-height:1.4}
+.space-link{
+  color:inherit;
+  text-decoration:underline;
+  text-decoration-color:var(--accent);
+  text-decoration-thickness:.12em;
+  text-decoration-skip-ink:none;
+  text-underline-offset:.2em;
+}
+.space-link:hover{text-decoration-thickness:.2em}
 .place-sub{font-size:.9375rem;color:var(--ink-2)}
 .hero-cta{margin-top:28px;display:flex;flex-wrap:wrap;gap:12px}
 .btn{
@@ -228,12 +237,18 @@ a:hover{text-decoration-thickness:2px}
 .callout{
   border-left:3px solid var(--ink);padding:4px 0 4px 20px;background:none;
 }
-.callout strong{display:block;font-family:var(--serif);margin-bottom:6px}
+.callout > strong{display:block;font-family:var(--serif);margin-bottom:6px} /* 見出し行のみ。本文中の .key には効かせない */
 .alt .callout{background:var(--paper);padding:20px 20px 20px 24px}
 
 .data-list{margin-top:1.2em;border-top:1px solid var(--line)}
-.data-list li{border-bottom:1px solid var(--line);padding:12px 0;display:flex;flex-wrap:wrap;gap:4px 16px}
-.data-list b{font-family:var(--serif);min-width:9em}
+.data-list li{border-bottom:1px solid var(--line);padding:12px 0}
+.data-list b{display:block;font-family:var(--serif);font-weight:700}
+.data-list span{display:block}
+/* 広い画面は「媒体名｜データ」の横並び。スマホは媒体名→改行→データ */
+@media (min-width:600px){
+  .data-list li{display:flex;gap:4px 16px}
+  .data-list b{min-width:9em}
+}
 
 /* ============================================================
    Concept diagrams
@@ -358,10 +373,10 @@ a:hover{text-decoration-thickness:2px}
 .info{border-top:2px solid var(--line-strong)}
 .info > div{display:grid;gap:2px 24px;padding:16px 0;border-bottom:1px solid var(--line)}
 @media (min-width:560px){.info > div{grid-template-columns:9em minmax(0,1fr);align-items:baseline}}
-.info dt{font-size:.875rem;color:var(--ink-3)}
-.info dd{font-family:var(--serif);font-size:1.125rem;line-height:1.6}
+.info dt{font-size:1rem;line-height:1.6;color:var(--ink-3)}
+.info dd{font-family:var(--serif);font-size:1rem;line-height:1.6}
 .info dd.strong{font-weight:700;font-size:1.375rem}
-.info dd small{display:block;font-family:var(--sans);font-size:.8125rem;color:var(--ink-3);margin-top:2px}
+.info dd small{display:block;font-weight:400;font-family:var(--sans);font-size:.8125rem;color:var(--ink-3);margin-top:2px}
 .links{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--sans) !important;font-size:1rem !important}
 .links a{display:inline-block;padding:6px 0}
 
@@ -428,7 +443,7 @@ a:hover{text-decoration-thickness:2px}
 
       <div class="place">
         <span class="place-label">コミックマーケットC109（2026年冬）</span>
-        <span class="place-main">1日目（火）西2 い31b</span>
+        <span class="place-main"><a class="space-link" href="https://webcatalog-auth.circle.ms/Perma/Circle/10526929/" target="_blank" rel="noopener noreferrer" aria-label="1日目（火）西2 い31b（コミケWebカタログのサークルページを新しいタブで開く）">1日目（火）西2 い31b</a></span>
         <span class="place-sub">サークル名　村野製作所</span>
       </div>
 
@@ -642,10 +657,10 @@ a:hover{text-decoration-thickness:2px}
     </div>
     <div>
       <dl class="info">
-        <div><dt>サークル名</dt><dd class="strong">村野製作所</dd></div>
+        <div><dt>サークル名</dt><dd>村野製作所</dd></div>
         <div><dt>イベント</dt><dd>コミックマーケットC109（2026年冬）</dd></div>
         <div data-optional="date" hidden><dt>開催日</dt><dd data-field="date"></dd></div>
-        <div><dt>配置</dt><dd class="strong">1日目（火）　西2 い31b</dd></div>
+        <div><dt>配置</dt><dd class="strong"><a class="space-link" href="https://webcatalog-auth.circle.ms/Perma/Circle/10526929/" target="_blank" rel="noopener noreferrer" aria-label="1日目（火）西2 い31b（コミケWebカタログのサークルページを新しいタブで開く）">1日目（火）　西2 い31b</a><small>配置をタップすると、コミケWebカタログのサークルページを開きます。</small></dd></div>
         <div><dt>ジャンル</dt><dd>ラブライブ！</dd></div>
         <div><dt>頒布物</dt><dd>ゼロからつくる日野下インストール<small>ボトムアップ型AIの未来と可能性</small></dd></div>
         <div data-optional="price" hidden><dt>頒布価格</dt><dd data-field="price"></dd></div>
