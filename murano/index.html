@@ -21,6 +21,9 @@
 <meta name="twitter:image" content="https://airmiya.jp/murano/images/c109circlecut.png">
 <meta name="twitter:title" content="ゼロからつくる日野下インストール｜村野製作所">
 <meta name="twitter:description" content="日野下花帆の人格をAIで再現できるのか。技術同人誌の特設ページ。非公式ファン制作物。">
+<link rel="icon" href="images/favicon.ico" sizes="48x48">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="canonical" href="https://airmiya.jp/murano">
 
 <script>
@@ -430,6 +433,11 @@ a:hover{text-decoration-thickness:2px}
 .site-footer .fine{color:var(--ink-3);font-size:.8125rem}
 .to-top{display:block;padding:8px 0;text-align:right}
 .site-footer .copy{text-align:right}
+.author{border-top:1px solid #d4d4d4;padding-top:16px}
+.author-name{font-weight:700;color:var(--ink);margin-bottom:6px}
+.author-links{display:flex;flex-wrap:wrap;gap:4px 20px;margin:0;padding:0;list-style:none}
+.author-links a{display:inline-block;padding:6px 0;color:var(--ink);text-decoration:underline;text-underline-offset:.2em}
+.author-links a:hover{text-decoration-color:var(--accent);text-decoration-thickness:.2em}
 
 @media print{
   .site-header,.skip,.hero-cta{display:none}
@@ -885,6 +893,10 @@ a:hover{text-decoration-thickness:2px}
     <p>公式・関連企業・権利者とは一切関係がありません。</p>
     <p>『ラブライブ！』シリーズに関する名称・キャラクター等の権利は、各権利者に帰属します。<br>本ページには公式の画像・ロゴを使用していません。</p>
     <p class="fine" id="tm-note" hidden>X、LINE は、それぞれ各社の商標または登録商標です。</p>
+    <nav class="author" id="author" aria-label="著者のリンク" hidden>
+      <p class="author-name">著者：Airmiya（村野製作所）</p>
+      <ul class="author-links"></ul>
+    </nav>
     <p class="fine copy">&copy; 村野製作所</p>
     <a class="to-top" href="#top">ページの先頭へ戻る</a>
   </div>
@@ -901,6 +913,11 @@ var SITE = {
   pages: "",                        // 例："120ページ"
   url:   "https://airmiya.jp/murano", // 公開ページURL（https:// から）
   cover: { src: "", alt: "" },      // 表紙画像。例：{ src:"cover.jpg", alt:"『ゼロからつくる日野下インストール』表紙" }
+  author: [                         // 著者リンク（フッター）。href が空の項目は自動で非表示
+    { label: "公式サイト", href: "https://airmiya.jp" },
+    { label: "X",          href: "https://x.com/airmiya" },
+    { label: "note",       href: "https://note.com/airmiya" }
+  ],
   sns:   [                          // 例：{ label:"X（@account）", href:"https://x.com/account" }
     { label: "X（airmiya）", href: "https://x.com/airmiya" }
   ],
@@ -1074,6 +1091,17 @@ var SITE = {
       }, "share");
     }
     box.hidden = false;
+    // 著者リンク（フッター）
+    var au = (SITE.author || []).filter(function(a){ return a && a.label && isHttp(a.href); });
+    if(au.length){
+      var ul = document.querySelector("#author .author-links");
+      au.forEach(function(a){
+        var li = document.createElement("li"), l = document.createElement("a");
+        l.href = a.href; l.textContent = a.label; l.rel = "noopener"; l.target = "_blank";
+        li.appendChild(l); ul.appendChild(li);
+      });
+      document.getElementById("author").hidden = false;
+    }
     if(usedLogo){ var tm = document.getElementById("tm-note"); if(tm) tm.hidden = false; }
   })();
 
