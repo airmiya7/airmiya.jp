@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="脳と電子回路のアイコン">
+  <title>脳と電子回路</title>
+  <rect width="64" height="64" rx="12" fill="#111"/>
+  <g transform="translate(0.00 2.00)">
+  <!-- 脳の輪郭 -->
+  <path d="M32 11C27 7 18 8 16 15C9 16 7 25 11 30C7 36 10 44 17 45C19 51 27 53 32 50C37 53 45 51 47 45C54 44 57 36 53 30C57 25 55 16 48 15C46 8 37 7 32 11Z"
+        fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>
+  <!-- 左：脳のしわ（有機的な曲線） -->
+  <g fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 24C22 24 25 27 25 31"/>
+    <path d="M15 37C20 37 23 40 23 44"/>
+  </g>
+  <!-- 右：電子回路（直角・斜めの配線とノード） -->
+  <g fill="none" stroke="#f8b500" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 21H40L44 25H48"/>
+    <path d="M32 31H45"/>
+    <path d="M32 41H38L42 37H46"/>
+  </g>
+  <g fill="#f8b500">
+    <circle cx="49" cy="25" r="2.6"/>
+    <circle cx="48" cy="31" r="2.6"/>
+    <circle cx="47" cy="37" r="2.6"/>
+  </g>
+  <!-- 中央の分割線 -->
+  <path d="M32 12V50" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>
