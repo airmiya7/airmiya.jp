@@ -176,10 +176,7 @@ a:hover{text-decoration-thickness:2px}
 }
 .hero h1 span{display:block}
 @media (min-width:860px){.hero{--title-size:min(5.8vw,4rem)}}
-.hero h1::before,.section-head h2::before{
-  content:"";display:block;width:44px;height:5px;background:var(--accent);margin-bottom:18px;
-}
-.section-head h2::before{height:4px;margin-bottom:14px}
+.hero h1 .zero{font-style:normal;color:var(--accent)}  /* 「ゼロ」だけアクセントカラー */
 .hero-sub{
   margin-top:10px;font-family:var(--serif);font-size:max(1rem,calc(var(--title-size) / 2)); /* タイトルの1/2。ただし本文(1rem)より小さくしない */
   line-height:1.6;color:var(--ink-2);
@@ -248,6 +245,10 @@ a:hover{text-decoration-thickness:2px}
 }
 .section-head h2{
   font-family:var(--serif);font-weight:700;font-size:clamp(1.625rem,4.4vw,2rem);line-height:1.35;
+}
+.section-head h2 .ul{      /* 見出しの日本語の下にアクセントの下線 */
+  text-decoration:underline;text-decoration-color:var(--accent);
+  text-decoration-thickness:.14em;text-decoration-skip-ink:none;text-underline-offset:.22em;
 }
 .section-head .en{margin-top:6px;font-size:.875rem;color:var(--ink-3)}
 
@@ -432,12 +433,13 @@ a:hover{text-decoration-thickness:2px}
 .site-footer p{max-width:none;line-height:1.85;text-wrap:pretty}
 .site-footer .fine{color:var(--ink-3);font-size:.8125rem}
 .to-top{display:block;padding:8px 0;text-align:right}
+.to-top-ico{width:.7em;height:.7em;margin-right:.5em;vertical-align:.05em}  /* 頭の▲アイコン */
 .site-footer .copy{text-align:right}
 .author{border-top:1px solid #d4d4d4;padding-top:16px}
 .author-name{font-weight:700;color:var(--ink);margin-bottom:6px}
 .author-links{display:flex;flex-wrap:wrap;gap:4px 20px;margin:0;padding:0;list-style:none}
-.author-links a{display:inline-block;padding:6px 0;color:var(--ink);text-decoration:underline;text-underline-offset:.2em}
-.author-links a:hover{text-decoration-color:var(--accent);text-decoration-thickness:.2em}
+.author-links a{display:inline-block;padding:6px 0;color:var(--ink)}
+.site-footer a,.site-footer a:hover{text-decoration:none}  /* フッターのリンクは下線なし */
 
 @media print{
   .site-header,.skip,.hero-cta{display:none}
@@ -486,11 +488,15 @@ a:hover{text-decoration-thickness:2px}
     transform calc(.6s * var(--anim-scale)) calc(var(--d,0s) * var(--anim-scale)) cubic-bezier(.2,.7,.2,1);
 }
 
-/* --- 見出しの黄色バーを描く --- */
-.anim .section-head h2::before{width:0;transition:width .2s ease}
-.anim .section-head.in h2::before{
-  width:44px;
-  transition:width calc(.6s * var(--anim-scale)) calc(.1s * var(--anim-scale)) cubic-bezier(.2,.7,.2,1);
+/* --- 見出しの下線を左から引く --- */
+.anim .section-head h2 .ul{
+  text-decoration:none;
+  background:linear-gradient(var(--accent),var(--accent)) no-repeat 0 calc(100% + .04em) / 0% .14em;
+  transition:background-size .2s ease;
+}
+.anim .section-head.in h2 .ul{
+  background-size:100% .14em;
+  transition:background-size calc(.6s * var(--anim-scale)) calc(.1s * var(--anim-scale)) cubic-bezier(.2,.7,.2,1);
 }
 
 /* --- 強調の下線を左から引く（本文が現れたあとに） --- */
@@ -561,17 +567,14 @@ a:hover{text-decoration-thickness:2px}
 
 /* --- ヒーロー：画面に入るたびに再生（.hero.in の間だけ演出を当てる） --- */
 @keyframes a-rise{from{opacity:0;transform:translateY(16px)}}
-@keyframes a-bar{from{width:0}}
 /* 入る前（画面外のリセット状態）は隠しておく */
 .anim .hero:not(.in) .hero-kicker,.anim .hero:not(.in) h1 span,.anim .hero:not(.in) .hero-sub,
 .anim .hero:not(.in) .hero-note,.anim .hero:not(.in) .place,.anim .hero:not(.in) .hero-cta,
 .anim .hero:not(.in) .cover{opacity:0}
-.anim .hero:not(.in) h1::before{width:0}
 .anim .hero.in .hero-kicker,.anim .hero.in h1 span,.anim .hero.in .hero-sub,
 .anim .hero.in .hero-note,.anim .hero.in .place,.anim .hero.in .hero-cta,.anim .hero.in .cover{
   animation:a-rise calc(.75s * var(--hero-scale)) cubic-bezier(.2,.7,.2,1) both;
 }
-.anim .hero.in h1::before{animation:a-bar calc(.6s * var(--hero-scale)) calc(.05s * var(--hero-scale)) cubic-bezier(.2,.7,.2,1) both}
 .anim .hero.in .hero-kicker{animation-delay:calc(.10s * var(--hero-scale))}
 .anim .hero.in h1 span:nth-child(1){animation-delay:calc(.20s * var(--hero-scale))}
 .anim .hero.in h1 span:nth-child(2){animation-delay:calc(.32s * var(--hero-scale))}
@@ -601,7 +604,7 @@ a:hover{text-decoration-thickness:2px}
   .anim .rv,.anim .stack-wrap .stack ol > li,.anim .stack-wrap .stack .base,
   .anim .compare .flow ol > li,.anim .compare .flow .result,
   .anim .hero:not(.in) *{opacity:1 !important;transform:none !important;animation:none !important}
-  .anim .section-head h2::before,.anim .hero:not(.in) h1::before{width:44px}
+  .anim .section-head h2 .ul{background-size:100% .14em}
   .anim .key{background-size:100% .2em}
   .anim .stack-wrap .axis i{clip-path:none}
 }
@@ -635,7 +638,7 @@ a:hover{text-decoration-thickness:2px}
     <div>
       <p class="hero-kicker">ラブライブ！ 技術同人誌</p>
       <h1 id="title">
-        <span>ゼロからつくる</span>
+        <span><em class="zero">ゼロ</em>からつくる</span>
         <span>日野下インストール</span>
       </h1>
       <p class="hero-sub">ボトムアップ型AIの未来と可能性</p>
@@ -670,7 +673,7 @@ a:hover{text-decoration-thickness:2px}
 <section class="section" id="about" aria-labelledby="about-h">
   <div class="wrap">
     <div class="section-head">
-      <h2 id="about-h">企画について</h2>
+      <h2 id="about-h"><span class="ul">企画について</span></h2>
       <p class="en">About</p>
     </div>
     <div class="prose">
@@ -699,7 +702,7 @@ a:hover{text-decoration-thickness:2px}
 <section class="section alt" id="concept" aria-labelledby="concept-h">
   <div class="wrap">
     <div class="section-head">
-      <h2 id="concept-h">人格形成モデル</h2>
+      <h2 id="concept-h"><span class="ul">人格形成モデル</span></h2>
       <p class="en">Concept</p>
     </div>
     <div>
@@ -766,7 +769,7 @@ a:hover{text-decoration-thickness:2px}
 <section class="section" id="technology" aria-labelledby="tech-h">
   <div class="wrap">
     <div class="section-head">
-      <h2 id="tech-h">扱う技術</h2>
+      <h2 id="tech-h"><span class="ul">扱う技術</span></h2>
       <p class="en">Technology</p>
     </div>
     <div>
@@ -826,7 +829,7 @@ a:hover{text-decoration-thickness:2px}
 <section class="section alt" id="contents" aria-labelledby="contents-h">
   <div class="wrap">
     <div class="section-head">
-      <h2 id="contents-h">本の内容</h2>
+      <h2 id="contents-h"><span class="ul">本の内容</span></h2>
       <p class="en">Contents</p>
     </div>
     <div>
@@ -855,7 +858,7 @@ a:hover{text-decoration-thickness:2px}
 <section class="section" id="circle" aria-labelledby="circle-h">
   <div class="wrap">
     <div class="section-head">
-      <h2 id="circle-h">頒布情報</h2>
+      <h2 id="circle-h"><span class="ul">頒布情報</span></h2>
       <p class="en">Circle &amp; Event</p>
     </div>
     <div>
@@ -898,7 +901,7 @@ a:hover{text-decoration-thickness:2px}
       <ul class="author-links"></ul>
     </nav>
     <p class="fine copy">&copy; 村野製作所</p>
-    <a class="to-top" href="#top">ページの先頭へ戻る</a>
+    <a class="to-top" href="#top"><svg class="to-top-ico" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 2 11 10H1Z" fill="currentColor"/></svg>ページの先頭へ戻る</a>
   </div>
 </footer>
 
