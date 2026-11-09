@@ -83,7 +83,14 @@ a:hover{text-decoration-thickness:2px}
   display:inline-block;padding:10px 8px;font-size:.875rem;line-height:1.4;
   text-decoration:none;color:var(--ink-2);
 }
-.nav a:hover{color:var(--ink);text-decoration:underline}
+.nav a:hover{
+  color:var(--ink);
+  text-decoration:underline;
+  text-decoration-color:var(--accent);
+  text-decoration-thickness:.2em;
+  text-decoration-skip-ink:none;
+  text-underline-offset:.3em;
+}
 .site-header{position:sticky;top:0;z-index:50}
 @media (min-width:768px){
   .nav{gap:0 12px}
@@ -143,7 +150,7 @@ a:hover{text-decoration-thickness:2px}
   margin-top:10px;font-family:var(--serif);font-size:max(1rem,calc(var(--title-size) / 2)); /* タイトルの1/2。ただし本文(1rem)より小さくしない */
   line-height:1.6;color:var(--ink-2);
 }
-.hero-note{margin-top:20px;font-size:.9375rem;color:var(--ink-2);max-width:var(--measure);text-wrap:pretty}
+.hero-note{margin-top:20px;font-size:.9375rem;color:var(--ink-2);text-wrap:pretty}
 .hero-note .nb{display:inline-block}
 
 .place{
@@ -164,13 +171,13 @@ a:hover{text-decoration-thickness:2px}
 .btn.ghost:hover{background:var(--ink);color:var(--paper)}
 
 /* Cover */
-.cover{max-width:340px;width:100%;margin-inline:auto}
-@media (min-width:860px){.cover{margin-inline:0 auto}}
+.cover{max-width:340px;width:100%;margin-inline:0}
 .cover-frame{
   aspect-ratio:182/257; /* B5 */
   border:1px solid var(--ink);background:var(--wash);
   display:flex;flex-direction:column;justify-content:space-between;padding:22px;
   box-shadow:10px 10px 0 var(--line);
+  margin-right:10px; /* 影を含めてNavの右端に揃える */
 }
 .cover-frame img{display:block;width:100%;height:100%;object-fit:cover}
 .cover-frame.has-image{padding:0;background:var(--paper)}
@@ -194,7 +201,7 @@ a:hover{text-decoration-thickness:2px}
 .section-head .en{margin-top:6px;font-size:.875rem;color:var(--ink-3)}
 
 .prose > * + *{margin-top:1.4em}
-.prose{max-width:var(--measure)}
+.prose{max-width:none}
 .prose h3{
   font-family:var(--serif);font-size:1.25rem;line-height:1.5;margin-top:2.4em;
 }
@@ -223,7 +230,7 @@ a:hover{text-decoration-thickness:2px}
    ============================================================ */
 .diagram{margin-top:48px}
 .diagram + .diagram{margin-top:72px}
-.diagram figcaption{margin-top:16px;font-size:.875rem;color:var(--ink-2);max-width:var(--measure)}
+.diagram figcaption{margin-top:16px;font-size:.875rem;color:var(--ink-2)}
 .diagram-title{font-family:var(--serif);font-weight:700;font-size:1.0625rem;margin-bottom:16px}
 
 /* stack: six elements of personality */
@@ -434,7 +441,7 @@ a:hover{text-decoration-thickness:2px}
       <p>タイトルにある<strong class="key">「日野下インストール」</strong>は、105期活動記録 第3話『星に憧れて、花は舞う』に由来する言葉です。風邪で倒れた日野下花帆に代わり、金沢のロックフェスへ向けてみんなを引っ張ることになった<strong class="key">村野さやか</strong>が、花帆になりきろうとしました。この行動が、劇中では<strong class="key">「日野下インストール」</strong>と呼ばれています。</p>
       <p>人が、ほかの誰かの人格を自分の中に取り込もうとする。その試みを、AIでやってみたらどうなるのか。本書の問いは、そこから始まります。サークル名の村野製作所も、さやかと同じ「村野」です。さやかが花帆をインストールしようとしたように、こちらはAIで、<strong class="key">日野下花帆をインストールできるのか</strong>を確かめます。</p>
       <p>セリフを真似させるだけなら、すでに多くの人が試しています。けれど「その人らしさ」は、決まり文句の集まりではありません。何を経験し、何を覚え、どう感じ、何を大切にして、どう判断するのか。その積み重ねが、ひとつの発話や行動として現れます。</p>
-      <p>この本は、その積み重ねをデータから組み立て直せるかを、手を動かしながら確かめていく技術同人誌です。<strong class="key">トップダウン</strong>に「それらしさ」を与えるのではなく、元になるデータから人格を構成する要素を一つずつ積み上げる、<strong class="key">ボトムアップ型のAI</strong>という考え方を軸にしています。</p>
+      <p>この本は、その積み重ねをデータから組み立て直せるかを、手を動かしながら確かめていく技術同人誌です。<strong class="key">トップダウン</strong>に「それらしさ」を与えるのではなく、元になるデータから人格を構成する要素を一つずつ積み上げる、<strong class="key">ボトムアップ型AI</strong>という考え方を軸にしています。</p>
 
       <h3>題材にするデータ</h3>
       <ul class="data-list">
