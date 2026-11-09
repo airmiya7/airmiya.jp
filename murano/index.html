@@ -246,9 +246,12 @@ a:hover{text-decoration-thickness:2px}
 .section-head h2{
   font-family:var(--serif);font-weight:700;font-size:clamp(1.625rem,4.4vw,2rem);line-height:1.35;
 }
-.section-head h2 .ul{      /* 見出しの日本語の下にアクセントの下線 */
-  text-decoration:underline;text-decoration-color:var(--accent);
-  text-decoration-thickness:.14em;text-decoration-skip-ink:none;text-underline-offset:.22em;
+/* 日本語タイトルと英語タイトルの間にアクセントの横線（独立した要素なので、ブラウザ・フォントによるズレが出ない） */
+.section-head h2::after{
+  --rule-h:5px;            /* 線の太さ */
+  --rule-gap:10px;         /* 日本語タイトル・英語タイトルとの間隔 */
+  content:"";display:block;height:var(--rule-h);margin-block:var(--rule-gap) calc(var(--rule-gap) - 6px);
+  background:var(--accent);
 }
 .section-head .en{margin-top:6px;font-size:.875rem;color:var(--ink-3)}
 
@@ -488,15 +491,11 @@ a:hover{text-decoration-thickness:2px}
     transform calc(.6s * var(--anim-scale)) calc(var(--d,0s) * var(--anim-scale)) cubic-bezier(.2,.7,.2,1);
 }
 
-/* --- 見出しの下線を左から引く --- */
-.anim .section-head h2 .ul{
-  text-decoration:none;
-  background:linear-gradient(var(--accent),var(--accent)) no-repeat 0 calc(100% + .04em) / 0% .14em;
-  transition:background-size .2s ease;
-}
-.anim .section-head.in h2 .ul{
-  background-size:100% .14em;
-  transition:background-size calc(.6s * var(--anim-scale)) calc(.1s * var(--anim-scale)) cubic-bezier(.2,.7,.2,1);
+/* --- 見出しの横線を左から引く --- */
+.anim .section-head h2::after{transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+.anim .section-head.in h2::after{
+  transform:scaleX(1);
+  transition:transform calc(.6s * var(--anim-scale)) calc(.1s * var(--anim-scale)) cubic-bezier(.2,.7,.2,1);
 }
 
 /* --- 強調の下線を左から引く（本文が現れたあとに） --- */
@@ -604,7 +603,7 @@ a:hover{text-decoration-thickness:2px}
   .anim .rv,.anim .stack-wrap .stack ol > li,.anim .stack-wrap .stack .base,
   .anim .compare .flow ol > li,.anim .compare .flow .result,
   .anim .hero:not(.in) *{opacity:1 !important;transform:none !important;animation:none !important}
-  .anim .section-head h2 .ul{background-size:100% .14em}
+  .anim .section-head h2::after{transform:none}
   .anim .key{background-size:100% .2em}
   .anim .stack-wrap .axis i{clip-path:none}
 }
