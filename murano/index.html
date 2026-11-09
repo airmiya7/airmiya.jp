@@ -109,8 +109,10 @@ a:hover{text-decoration-thickness:2px}
 .site-header{background:#f7f7f7;border-bottom:1px solid var(--line)}
 .site-header .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 24px}
 .brand{
-  font-family:var(--serif);font-weight:700;font-size:1.0625rem;letter-spacing:.06em;
+  font-family:var(--serif);font-weight:900;font-size:1.0625rem;letter-spacing:.06em;
+  -webkit-text-stroke:.025em currentColor;  /* 太字がない環境でも一段太く見せる */
   text-decoration:none;padding:14px 0;
+  color:#5383c3;  /* ロゴ（村野製作所）の色 */
 }
 .nav{display:flex;flex-wrap:wrap;gap:0 4px;margin-inline:-8px}
 .nav a{
