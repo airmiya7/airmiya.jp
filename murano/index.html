@@ -168,9 +168,12 @@ a:hover{text-decoration-thickness:2px}
   border:1px solid var(--ink);background:var(--ink);color:var(--paper);
   font-size:.9375rem;text-decoration:none;
 }
-.btn:hover{background:var(--paper);color:var(--ink)}
 .btn.ghost{background:var(--paper);color:var(--ink)}
-.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+@media (hover:hover){
+  .btn.ghost:hover img.ico.mono{filter:invert(1)} /* 黒/白ロゴのみ。反転しても白黒の範囲 */
+  .btn:hover{background:var(--paper);color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper)}
+}
 
 /* Cover */
 .cover{max-width:340px;width:100%;margin-inline:0}
@@ -356,6 +359,15 @@ a:hover{text-decoration-thickness:2px}
 .info dd small{display:block;font-family:var(--sans);font-size:.8125rem;color:var(--ink-3);margin-top:2px}
 .links{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--sans) !important;font-size:1rem !important}
 .links a{display:inline-block;padding:6px 0}
+
+/* Share */
+.share{margin-top:48px;padding-top:24px;border-top:1px solid var(--line)}
+.share-title{font-family:var(--serif);font-weight:700;font-size:1.0625rem;margin-bottom:14px}
+.share-list{display:flex;flex-wrap:wrap;gap:10px}
+.share-list .btn{cursor:pointer;font-family:inherit;line-height:1.4;gap:.5em}
+.share-list img.ico{object-fit:contain}
+.share-list .ico{width:1.2em;height:1.2em;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.share-status{display:block;min-height:1.6em;margin-top:10px;font-size:.875rem;color:var(--ink-2)}
 
 /* ============================================================
    Footer
@@ -639,6 +651,13 @@ a:hover{text-decoration-thickness:2px}
       <div class="prose" style="margin-top:32px">
         <p style="font-size:.9375rem;color:var(--ink-2)">価格やページ数など未定の項目は決まり次第このページに追加します。<br>当日はお気軽にお立ち寄りください。</p>
       </div>
+
+      <!-- 共有ボタン：JSで生成（SITE.share / SITE.url から）。URLが無い場合は非表示 -->
+      <div class="share" id="share" hidden>
+        <p class="share-title" id="share-t">このページを共有</p>
+        <ul class="share-list" id="share-list" aria-labelledby="share-t"></ul>
+        <span class="share-status" id="share-status" role="status" aria-live="polite"></span>
+      </div>
     </div>
   </div>
 </section>
@@ -650,6 +669,7 @@ a:hover{text-decoration-thickness:2px}
     <p><strong>本ページおよび頒布物は、非公式のファン制作物です。</strong></p>
     <p>公式・関連企業・権利者とは一切関係がありません。</p>
     <p>『ラブライブ！』シリーズに関する名称・キャラクター等の権利は、各権利者に帰属します。<br>本ページには公式の画像・ロゴを使用していません。</p>
+    <p class="fine" id="tm-note" hidden>X、LINE は、それぞれ各社の商標または登録商標です。</p>
     <p class="fine">&copy; 村野製作所</p>
     <a class="to-top" href="#top">ページの先頭へ戻る</a>
   </div>
@@ -669,6 +689,13 @@ var SITE = {
   sns:   [                          // 例：{ label:"X（@account）", href:"https://x.com/account" }
     { label: "X（airmiya）", href: "https://x.com/airmiya" }
   ],
+  share: {                          // 共有ボタン。text＝投稿文、hashtags＝["C109"] のように（#は不要）
+    text: "ゼロからつくる日野下インストール｜村野製作所　コミックマーケットC109（2026年冬）1日目 西2 い31b",
+    hashtags: [],
+    // 公式ロゴを使う場合のみ、配布元から入手した画像のパスを入れる（改変しないこと）。空欄なら汎用アイコン。
+    // Xのロゴは黒を想定（ホバーで白に反転）。白ロゴの場合は .mono の指定を外すこと。
+    logos: { x: "https://airmiya.jp/murano/images/x_logo.svg", line: "https://airmiya.jp/murano/images/line_logo.svg" }
+  },
   chapters: [                       // 例：{ title:"第1章　…", summary:"…" }
     // { title: "", summary: "" }
   ]
@@ -745,6 +772,95 @@ var SITE = {
     });
     document.querySelector('[data-optional="sns"]').hidden = false;
   }
+
+  // 共有ボタン（URLは SITE.url、無ければ現在のURL）
+  (function(){
+    var url = isHttp(SITE.url) ? SITE.url : (isHttp(location.href) ? location.href : "");
+    var box = document.getElementById("share");
+    if(!url || !box) return;
+    var cfg = SITE.share || {};
+    var text = cfg.text || document.title;
+    var tags = (cfg.hashtags || []).filter(Boolean).map(function(t){ return String(t).replace(/^#/, ""); }).join(",");
+    var enc = encodeURIComponent;
+    var list = document.getElementById("share-list");
+    var status = document.getElementById("share-status");
+
+    // 汎用アイコン（各サービスのロゴではありません）。stroke=currentColor
+    var ICONS = {
+      post:  '<path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/>',
+      chat:  '<path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.2 8.7 8.7 0 0 1-3.6-.8L3 21l1.6-4.7A8 8 0 0 1 3.5 11.5 8.4 8.4 0 0 1 12 3.3a8.4 8.4 0 0 1 9 8.2z"/>',
+      link:  '<path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>',
+      share: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>'
+    };
+    var LOGOS = cfg.logos || {};
+    var LOGO_KEY = { post: "x", chat: "line" };
+    var usedLogo = false;
+    function fill(el, icon, label){
+      var src = LOGOS[LOGO_KEY[icon]];
+      if(src){
+        usedLogo = true;
+        var img = new Image();
+        img.className = "ico" + (icon === "post" ? " mono" : "");
+        img.src = src; img.alt = ""; img.width = 20; img.height = 20;
+        el.appendChild(img);
+      } else {
+        el.innerHTML = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + ICONS[icon] + '</svg>';
+      }
+      var s = document.createElement("span"); s.textContent = label; el.appendChild(s);
+    }
+
+    function addLink(label, href, aria, icon){
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.className = "btn ghost"; a.href = href; fill(a, icon, label);
+      a.target = "_blank"; a.rel = "noopener noreferrer";
+      if(aria) a.setAttribute("aria-label", aria);
+      li.appendChild(a); list.appendChild(li);
+    }
+    function addButton(label, onClick, icon){
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "btn ghost"; fill(b, icon, label);
+      b.addEventListener("click", onClick);
+      li.appendChild(b); list.appendChild(li);
+    }
+    function say(msg){
+      status.textContent = msg;
+      clearTimeout(say.t); say.t = setTimeout(function(){ status.textContent = ""; }, 3000);
+    }
+
+    addLink("Xで共有",
+      "https://x.com/intent/post?text=" + enc(text) + "&url=" + enc(url) + (tags ? "&hashtags=" + enc(tags) : ""),
+      "Xで共有（新しいタブで開きます）", "post");
+    addLink("LINEで共有",
+      "https://social-plugins.line.me/lineit/share?url=" + enc(url),
+      "LINEで共有（新しいタブで開きます）", "chat");
+
+    addButton("URLをコピー", function(){
+      function done(){ say("URLをコピーしました。"); }
+      function fail(){ say("コピーできませんでした。アドレスバーのURLをコピーしてください。"); }
+      if(navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(url).then(done, fail);
+      } else {
+        try{
+          var ta = document.createElement("textarea");
+          ta.value = url; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta); ta.select();
+          var ok = document.execCommand("copy");
+          document.body.removeChild(ta);
+          ok ? done() : fail();
+        }catch(e){ fail(); }
+      }
+    }, "link");
+
+    if(navigator.share){
+      addButton("その他のアプリで共有", function(){
+        navigator.share({ title: document.title, text: text, url: url }).catch(function(){});
+      }, "share");
+    }
+    box.hidden = false;
+    if(usedLogo){ var tm = document.getElementById("tm-note"); if(tm) tm.hidden = false; }
+  })();
 
   // 章立て
   var chs = (SITE.chapters || []).filter(function(c){ return c && c.title; });
