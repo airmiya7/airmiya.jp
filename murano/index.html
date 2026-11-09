@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ゼロからつくる日野下インストール｜村野製作所（コミックマーケットC109 2026年冬 1日目 西2 い31b）</title>
+<meta name="description" content="日野下花帆の人格をAIで再現できるのか。LLM・RAG・データ構造化から人格モデルまでを扱う技術同人誌『ゼロからつくる日野下インストール』の特設ページ。村野製作所／コミックマーケットC109（2026年冬）1日目 西2 い31b。非公式ファン制作物。">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+
+<!-- OGP：og:image は仮でサークルカットを指定中。表紙が決まったら絶対URLで差し替え、ファイル名も変える（SNS側のキャッシュ対策） -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="村野製作所">
+<meta property="og:title" content="ゼロからつくる日野下インストール｜村野製作所">
+<meta property="og:description" content="日野下花帆の人格をAIで再現できるのか。ボトムアップ型AIの未来と可能性を探る技術同人誌。コミックマーケットC109（2026年冬）1日目 西2 い31b。">
+<meta property="og:url" content="https://airmiya.jp/murano">
+<meta property="og:image" content="https://airmiya.jp/murano/images/c109circlecut.png">
+<meta property="og:image:alt" content="村野製作所のサークルカット">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://airmiya.jp/murano/images/c109circlecut.png">
+<meta name="twitter:title" content="ゼロからつくる日野下インストール｜村野製作所">
+<meta name="twitter:description" content="日野下花帆の人格をAIで再現できるのか。技術同人誌の特設ページ。非公式ファン制作物。">
+<link rel="canonical" href="https://airmiya.jp/murano">
+
+<script>
+document.documentElement.classList.add("js");
+/* アニメーション版：動きを減らす設定の人・IntersectionObserver非対応環境では何もしない */
+(function(){
+  var r = document.documentElement;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce || !("IntersectionObserver" in window)) return;
+  r.classList.add("anim");
+  // 安全装置：本体スクリプトが動かなかった場合、3秒後に非表示状態を解除
+  setTimeout(function(){ if(!window.__animReady) r.classList.remove("anim"); }, 3000);
+})();
+</script>
+<style>
+/* ============================================================
+   Tokens
+   ============================================================ */
+:root{
+  --paper:#ffffff;
+  --ink:#1c1c1c;
+  --ink-2:#4d4d4d;
+  --ink-3:#6b6b6b;
+  --line:#d4d4d4;
+  --line-strong:#1c1c1c;
+  --wash:#f4f4f4;
+  --accent:#f8b500;
+
+  --serif:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho","Noto Serif JP","Noto Serif CJK JP","BIZ UDPMincho","MS PMincho",Georgia,serif;
+  --sans:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic","YuGothic","BIZ UDPGothic",Meiryo,system-ui,-apple-system,"Segoe UI",sans-serif;
+
+  --gutter:clamp(20px,5vw,48px);
+  --measure:38em;
+  --section-y:clamp(72px,12vw,144px);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:72px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:1rem;line-height:1.9;
+  font-feature-settings:"palt" 0;
+  overflow-wrap:anywhere;word-break:normal;line-break:strict;
+}
+img,svg{max-width:100%;height:auto}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:.25em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+[hidden]{display:none !important}
+
+.skip{
+  position:absolute;left:var(--gutter);top:-100px;background:var(--ink);color:var(--paper);
+  padding:.6em 1em;z-index:100;
+}
+.skip:focus{top:8px}
+
+.wrap{width:100%;max-width:1080px;margin-inline:auto;padding-inline:var(--gutter)}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.site-header{background:#f7f7f7;border-bottom:1px solid var(--line)}
+.site-header .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 24px}
+.brand{
+  font-family:var(--serif);font-weight:700;font-size:1.0625rem;letter-spacing:.06em;
+  text-decoration:none;padding:14px 0;
+}
+.nav{display:flex;flex-wrap:wrap;gap:0 4px;margin-inline:-8px}
+.nav a{
+  display:inline-block;padding:10px 8px;font-size:.875rem;line-height:1.4;
+  text-decoration:none;color:var(--ink-2);
+}
+.nav a:hover{
+  color:var(--ink);
+  text-decoration:underline;
+  text-decoration-color:var(--accent);
+  text-decoration-thickness:.2em;
+  text-decoration-skip-ink:none;
+  text-underline-offset:.3em;
+}
+.site-header{position:sticky;top:0;z-index:50}
+@media (min-width:768px){
+  .nav{gap:0 12px}
+}
+
+/* ハンバーガー（JS有効時のみ。JS無効時はナビをそのまま表示） */
+.menu-btn{display:none}
+.js .menu-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;margin-right:-11px;padding:0;
+  border:0;background:none;color:var(--ink);cursor:pointer;
+}
+.bars,.bars::before,.bars::after{display:block;width:22px;height:2px;background:currentColor}
+.bars{position:relative}
+.bars::before,.bars::after{content:"";position:absolute;left:0}
+.bars::before{top:-7px}
+.bars::after{top:7px}
+@media (prefers-reduced-motion:no-preference){
+  .bars,.bars::before,.bars::after{transition:transform .2s,top .2s,background-color .2s}
+}
+.menu-btn[aria-expanded="true"] .bars{background:transparent}
+.menu-btn[aria-expanded="true"] .bars::before{top:0;transform:rotate(45deg)}
+.menu-btn[aria-expanded="true"] .bars::after{top:0;transform:rotate(-45deg)}
+
+.js .nav{display:none;flex-basis:100%;flex-direction:column;gap:0;margin:0;border-top:1px solid var(--line)}
+.js .nav.open{display:flex}
+.js .nav a{padding:14px 0;font-size:1rem;border-bottom:1px solid var(--line)}
+.js .nav a:last-child{border-bottom:0}
+@media (min-width:768px){
+  .js .menu-btn{display:none}
+  .js .nav,.js .nav.open{display:flex;flex-basis:auto;flex-direction:row;gap:0 12px;margin-inline:-8px;border:0}
+  .js .nav a{padding:10px 8px;font-size:.875rem;border:0}
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero{--title-size:clamp(1.625rem,8.4vw,2.75rem);padding-block:clamp(32px,calc(9vw - 24px),42px) clamp(56px,9vw,112px)}
+.hero .wrap{display:grid;gap:48px}
+@media (min-width:860px){
+  .hero .wrap{grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:72px;align-items:end}
+}
+.hero-kicker{font-size:.9375rem;color:var(--ink-2);margin-bottom:28px}
+.hero h1{
+  font-family:var(--serif);font-weight:700;
+  font-size:var(--title-size);
+  line-height:1.3;letter-spacing:.01em;
+  word-break:keep-all;
+}
+.hero h1 span{display:block}
+@media (min-width:860px){.hero{--title-size:min(5.8vw,4rem)}}
+.hero h1::before,.section-head h2::before{
+  content:"";display:block;width:44px;height:5px;background:var(--accent);margin-bottom:18px;
+}
+.section-head h2::before{height:4px;margin-bottom:14px}
+.hero-sub{
+  margin-top:10px;font-family:var(--serif);font-size:max(1rem,calc(var(--title-size) / 2)); /* タイトルの1/2。ただし本文(1rem)より小さくしない */
+  line-height:1.6;color:var(--ink-2);
+}
+.hero-note{margin-top:20px;font-size:.9375rem;color:var(--ink-2);text-wrap:pretty}
+.hero-note .nb{display:inline-block}
+
+.place{
+  margin-top:40px;border-top:2px solid var(--line-strong);border-bottom:1px solid var(--line);
+  padding:18px 0;display:grid;gap:4px;
+}
+.place-label{font-size:.8125rem;color:var(--ink-3)}
+.place-main{font-family:var(--serif);font-weight:700;font-size:clamp(1.375rem,4.4vw,1.875rem);line-height:1.4}
+.space-link{
+  color:inherit;
+  text-decoration:underline;
+  text-decoration-color:var(--accent);
+  text-decoration-thickness:.12em;
+  text-decoration-skip-ink:none;
+  text-underline-offset:.2em;
+}
+.space-link:hover{text-decoration-thickness:.2em}
+.place-sub{font-size:.9375rem;color:var(--ink-2)}
+.hero-cta{margin-top:28px;display:flex;flex-wrap:wrap;gap:12px}
+.btn{
+  display:inline-flex;align-items:center;min-height:48px;padding:0 24px;
+  border:1px solid var(--ink);background:var(--ink);color:var(--paper);
+  font-size:.9375rem;text-decoration:none;
+}
+.btn.ghost{background:var(--paper);color:var(--ink)}
+@media (hover:hover){
+  .btn.ghost:hover img.ico.mono{filter:invert(1)} /* 黒/白ロゴのみ。反転しても白黒の範囲 */
+  .btn:hover{background:var(--paper);color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper)}
+}
+
+/* Cover */
+.cover{max-width:360px;width:100%;margin-inline:auto;text-align:center}
+.cover-frame{text-align:left;margin-left:10px} /* 狭い画面：枠そのものを中央に（影の分を左右に確保） */
+@media (min-width:860px){
+  .cover{margin-inline:0;text-align:left}
+  .cover-frame{margin-left:0}
+}
+.cover-frame{
+  aspect-ratio:182/257; /* B5 */
+  border:1px solid var(--ink);background:var(--wash);
+  display:flex;flex-direction:column;justify-content:space-between;padding:22px;
+  box-shadow:10px 10px 0 var(--line);
+  margin-right:10px; /* 影を含めてNavの右端に揃える */
+}
+.cover-frame img{display:block;width:100%;height:100%;object-fit:cover}
+.cover-frame.has-image{padding:0;background:var(--paper)}
+.cover-ph-title{font-family:var(--serif);font-weight:700;font-size:1.25rem;line-height:1.4;color:var(--ink-3)}
+.cover-ph-note{font-size:.8125rem;color:var(--ink-3);border-top:1px solid var(--line);padding-top:12px}
+.cover figcaption{margin-top:28px;font-size:.8125rem;color:var(--ink-3)}
+
+/* ============================================================
+   Sections (book-like: margin column + text column)
+   ============================================================ */
+.section{padding-block:var(--section-y);border-top:1px solid var(--line)}
+.section.alt{background:var(--wash)}
+.section .wrap{display:grid;gap:36px}
+@media (min-width:860px){
+  .section .wrap{grid-template-columns:240px minmax(0,1fr);gap:72px}
+  .section-head{position:sticky;top:96px;align-self:start}
+}
+.section-head h2{
+  font-family:var(--serif);font-weight:700;font-size:clamp(1.625rem,4.4vw,2rem);line-height:1.35;
+}
+.section-head .en{margin-top:6px;font-size:.875rem;color:var(--ink-3)}
+
+.prose > * + *{margin-top:1.4em}
+.prose{max-width:none}
+.prose h3{
+  font-family:var(--serif);font-size:1.25rem;line-height:1.5;margin-top:2.4em;
+}
+.lead{font-family:var(--serif);font-size:clamp(1.25rem,3.4vw,1.625rem);line-height:1.7;font-weight:700}
+
+.key{
+  font-weight:700;
+  text-decoration:underline;
+  text-decoration-color:var(--accent);
+  text-decoration-thickness:.2em;
+  text-decoration-skip-ink:none;
+  text-underline-offset:.2em;
+}
+.callout{
+  border-left:3px solid var(--ink);padding:4px 0 4px 20px;background:none;
+}
+.callout > strong{display:block;font-family:var(--serif);margin-bottom:6px} /* 見出し行のみ。本文中の .key には効かせない */
+.alt .callout{background:var(--paper);padding:20px 20px 20px 24px}
+
+.data-list{margin-top:1.2em;border-top:1px solid var(--line)}
+.data-list li{border-bottom:1px solid var(--line);padding:12px 0}
+.data-list b{display:block;font-family:var(--serif);font-weight:700}
+.data-list span{display:block}
+/* 広い画面は「媒体名｜データ」の横並び。スマホは媒体名→改行→データ */
+@media (min-width:600px){
+  .data-list li{display:flex;gap:4px 16px}
+  .data-list b{min-width:9em}
+}
+
+/* ============================================================
+   Concept diagrams
+   ============================================================ */
+.diagram{margin-top:48px}
+.diagram + .diagram{margin-top:72px}
+.diagram figcaption{margin-top:16px;font-size:.875rem;color:var(--ink-2)}
+.diagram-title{font-family:var(--serif);font-weight:700;font-size:1.0625rem;margin-bottom:16px}
+
+/* stack: six elements of personality */
+.stack{border:1px solid var(--line-strong);background:var(--paper)}
+.stack ol{display:flex;flex-direction:column}
+.stack li{
+  display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:4px 16px;align-items:baseline;
+  padding:14px 16px;border-bottom:1px solid var(--line);
+}
+.stack li:last-child{border-bottom:0}
+.stack .name{font-family:var(--serif);font-weight:700;font-size:1.0625rem;line-height:1.5}
+.stack .gloss{font-size:.875rem;color:var(--ink-2);line-height:1.7}
+.stack li.top{background:var(--ink);color:var(--paper)}
+.stack li.top .gloss{color:#dcdcdc}
+.stack .base{
+  background:var(--wash);border-top:2px solid var(--line-strong);
+  padding:14px 16px;font-size:.875rem;
+}
+.stack .base b{font-family:var(--serif);display:block;margin-bottom:4px}
+.stack .base ul{display:flex;flex-wrap:wrap;gap:4px 18px;color:var(--ink-2)}
+.stack .base li{display:block;padding:0;border:0}
+.stack-wrap{display:grid;gap:0}
+/* 軸（矢印）は全幅で表示。狭い端末では列幅・余白を詰める */
+.stack-wrap{grid-template-columns:24px minmax(0,1fr);gap:10px}
+.axis{
+  display:flex;flex-direction:column;justify-content:space-between;align-items:center;
+  font-size:.75rem;line-height:1.2;color:var(--ink-3);padding:2px 0;
+}
+.axis span{writing-mode:vertical-rl;letter-spacing:.1em;white-space:nowrap}
+.axis i{flex:1;width:1px;background:var(--ink-3);margin:8px 0;position:relative}
+.axis i::before{
+  content:"";position:absolute;top:0;left:-4px;border:4.5px solid transparent;
+  border-bottom:7px solid var(--ink-3);border-top:0;
+}
+@media (min-width:640px){
+  .stack-wrap{grid-template-columns:44px minmax(0,1fr);gap:16px}
+}
+@media (max-width:420px){
+  .stack li{grid-template-columns:1fr;gap:2px}
+}
+
+/* compare: imitation vs reconstruction */
+.compare{display:grid;gap:20px}
+@media (min-width:720px){.compare{grid-template-columns:1fr 1fr;gap:24px}}
+.flow{border:1px solid var(--line);background:var(--paper);padding:20px}
+.flow.focus{border:1px solid var(--line-strong)}
+.flow h4{font-family:var(--serif);font-size:1.0625rem;line-height:1.5;margin:0 0 4px}
+.flow .tag{font-size:.8125rem;color:var(--ink-3);margin-bottom:16px}
+.flow .tag b{display:table;margin-bottom:6px;padding:2px 10px;background:var(--ink);color:var(--paper);font-family:var(--serif);font-size:.9375rem;line-height:1.6}
+.flow ol{display:flex;flex-direction:column;gap:22px}
+.flow ol.up{flex-direction:column-reverse} /* 下から上へ。DOM順は手順どおり */
+.flow li{
+  position:relative;border:1px solid var(--line);padding:8px 12px;font-size:.875rem;line-height:1.6;
+  background:var(--paper);
+}
+.flow li + li::before{
+  content:"";position:absolute;left:50%;top:-22px;height:22px;width:1px;background:var(--ink-3);
+}
+.flow li + li::after{
+  content:"";position:absolute;left:calc(50% - 4px);top:-7px;
+  border:4px solid transparent;border-top:6px solid var(--ink-3);border-bottom:0;
+}
+/* 下から上へ流れる図：線は後続項目の下側、矢じりは上向き */
+.flow ol.up li + li::before{top:100%}
+.flow ol.up li + li::after{
+  top:calc(100% + 1px);
+  border:4px solid transparent;border-bottom:6px solid var(--ink-3);border-top:0;
+}
+.flow.focus li{border-color:var(--ink)}
+.flow.focus li.goal{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:#fff3cf} /* 見出し色の枠＋薄い同系色の背景 */
+.flow li small{display:block;color:var(--ink-3);font-size:.75rem;line-height:1.5}
+.flow li.dim{background:var(--wash);color:var(--ink-2)}
+.flow .result{margin-top:16px;font-size:.875rem;color:var(--ink-2)}
+
+/* ============================================================
+   Technology
+   ============================================================ */
+.tech{border-top:2px solid var(--line-strong)}
+.tech > div{
+  display:grid;gap:6px 32px;padding:24px 0;border-bottom:1px solid var(--line);
+}
+@media (min-width:720px){.tech > div{grid-template-columns:200px minmax(0,1fr)}}
+.tech dt{font-family:var(--serif);font-weight:700;font-size:1.125rem;line-height:1.5}
+.tech dt small{display:block;font-family:var(--sans);font-weight:400;font-size:.8125rem;color:var(--ink-3)}
+.tech dd{max-width:var(--measure)}
+.tech dd p + p{margin-top:.8em}
+.tech .role{font-size:.9375rem;color:var(--ink-2)}
+
+.cond{margin-top:28px;border:1px solid var(--line-strong);background:var(--paper)}
+.cond-row{display:grid;grid-template-columns:2.5em minmax(0,1fr);gap:0 12px;padding:12px 16px;border-bottom:1px solid var(--line);align-items:baseline}
+.cond-row:last-child{border-bottom:0}
+.cond-row b{font-family:var(--serif);font-size:1.0625rem}
+.cond-row span{font-size:.9375rem}
+.cond-row.last{background:var(--wash)}
+
+/* ============================================================
+   Contents
+   ============================================================ */
+.topics{border-top:2px solid var(--line-strong)}
+.topics li{padding:16px 0;border-bottom:1px solid var(--line);display:grid;gap:2px}
+.topics b{font-family:var(--serif);font-size:1.0625rem}
+.topics span{font-size:.9375rem;color:var(--ink-2)}
+.chapters{border-top:2px solid var(--line-strong);counter-reset:ch}
+.chapters li{
+  counter-increment:ch;display:grid;grid-template-columns:3em minmax(0,1fr);gap:0 12px;
+  padding:18px 0;border-bottom:1px solid var(--line);
+}
+.chapters li::before{content:counter(ch);font-family:var(--serif);font-weight:700;font-size:1.25rem;line-height:1.5}
+.chapters b{font-family:var(--serif);font-size:1.0625rem;line-height:1.6;display:block}
+.chapters span{display:block;font-size:.9375rem;color:var(--ink-2)}
+.pending{margin-top:28px;border:1px dashed var(--ink-3);padding:16px 20px;font-size:.9375rem;color:var(--ink-2)}
+
+/* ============================================================
+   Circle
+   ============================================================ */
+.info{border-top:2px solid var(--line-strong)}
+.info > div{display:grid;gap:2px 24px;padding:16px 0;border-bottom:1px solid var(--line)}
+@media (min-width:560px){.info > div{grid-template-columns:9em minmax(0,1fr);align-items:baseline}}
+.info dt{font-size:1rem;line-height:1.6;color:var(--ink-3)}
+.info dd{font-family:var(--serif);font-size:1rem;line-height:1.6}
+.info dd.strong{font-weight:700;font-size:1.375rem}
+.info dd small{display:block;font-weight:400;font-family:var(--sans);font-size:.8125rem;color:var(--ink-3);margin-top:2px}
+.links{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--sans) !important;font-size:1rem !important}
+.links a{display:inline-block;padding:6px 0}
+/* 公開ページ・お知らせのリンクは下線なし（配置の .space-link は下線あり） */
+.info dd a:not(.space-link){text-decoration:none}
+
+/* Share */
+.share{margin-top:48px;padding-top:24px;border-top:1px solid var(--line)}
+.share-title{font-family:var(--serif);font-weight:700;font-size:1.0625rem;margin-bottom:14px}
+.share-list{display:flex;flex-wrap:wrap;gap:10px}
+.share-list .btn{cursor:pointer;font-family:inherit;line-height:1.4;gap:.5em}
+.share-list img.ico{object-fit:contain}
+.share-list .ico{width:1.2em;height:1.2em;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.share-status{display:block;min-height:1.6em;margin-top:10px;font-size:.875rem;color:var(--ink-2)}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.site-footer{background:#eeeeee;padding-block:48px 64px;font-size:.875rem;color:var(--ink-2)}
+.site-footer .wrap{display:grid;gap:16px}
+.site-footer p{max-width:none;line-height:1.85;text-wrap:pretty}
+.site-footer .fine{color:var(--ink-3);font-size:.8125rem}
+.to-top{display:block;padding:8px 0;text-align:right}
+.site-footer .copy{text-align:right}
+
+@media print{
+  .site-header,.skip,.hero-cta{display:none}
+  .section{break-inside:avoid}
+}
+
+/* ============================================================
+   ANIMATION（このファイルのみ）  ※ 画面に入るたびに再生
+
+   ★ 速さの調整はここだけ ★
+     --anim-scale : 説明文・見出し・dl/表の行の演出の「ゆっくり度」。1＝標準／0.5＝2倍速（現在）
+     --fig-scale  : 図1・図2の演出の「ゆっくり度」。1＝標準／2＝2倍ゆっくり（現在）
+     --hero-scale : ヒーロー（ページ冒頭）の演出の「ゆっくり度」。1＝標準
+     --chain      : 説明文・図が「上の要素の表示が終わってから」次を始める度合い。
+                    1＝上が完全に表示し終わってから／0.5＝半分進んだら次へ／0＝同時（従来）
+     --chain-rows : dl・表の行どうしの間隔（行1つの表示時間に対する割合）。0.35＝少し重ねて次の行へ
+   動きの長さ・待ち時間はすべてこれらに掛け算されます。
+   ============================================================ */
+:root{
+  --anim-scale:.5;
+  --fig-scale:2;
+  --hero-scale:1;
+  --chain:1;
+  --chain-rows:.35;
+}
+/* 方針：動きは「意味を補う」ものに限る。
+   - dl・表（項目の並び）：1行ごとに、その行が画面に入ったときに表示
+   - 図1：データに近い下の層から上へ積み上がる（ボトムアップ）
+   - 図2：トップダウン型を上から → 続けてボトムアップ型を下から
+   - 見出しの黄色バー／強調の下線：表示されるたびに引かれる
+   - NAV：ホバーの下線が伸びる／閲覧中のセクションを表示
+   仕組み：JS が要素に .in を付け外しする。
+     ・基本状態（.in なし）＝画面外でのリセット。短く戻る（見えないので目立たない）
+     ・.in 状態＝入場の演出。時間差(delay)はこちらにだけ付ける
+   html.anim は JS が付ける。reduce設定では付かず、静的な表示のまま。 */
+
+/* --- 共通：フェード＋わずかな持ち上がり（本文・dl・表の「行」） --- */
+.anim .rv{
+  opacity:0;transform:translateY(14px);
+  transition:opacity .2s ease,transform .2s ease;
+}
+.anim .rv.in{
+  opacity:1;transform:none;
+  transition:
+    opacity   calc(.6s * var(--anim-scale)) calc(var(--d,0s) * var(--anim-scale)) ease,
+    transform calc(.6s * var(--anim-scale)) calc(var(--d,0s) * var(--anim-scale)) cubic-bezier(.2,.7,.2,1);
+}
+
+/* --- 見出しの黄色バーを描く --- */
+.anim .section-head h2::before{width:0;transition:width .2s ease}
+.anim .section-head.in h2::before{
+  width:44px;
+  transition:width calc(.6s * var(--anim-scale)) calc(.1s * var(--anim-scale)) cubic-bezier(.2,.7,.2,1);
+}
+
+/* --- 強調の下線を左から引く（本文が現れたあとに） --- */
+.anim .key{
+  text-decoration:none;
+  background:linear-gradient(var(--accent),var(--accent)) no-repeat 0 calc(100% + .02em) / 0% .2em;
+  transition:background-size .2s ease;
+}
+.anim .key.in{
+  background-size:100% .2em;
+  transition:background-size calc(.7s * var(--anim-scale)) calc(.6s * var(--anim-scale)) cubic-bezier(.2,.7,.2,1);
+}
+
+/* --- 図1：最下段（元データ）から1段ずつ上へ。ボトムアップを見せる --- */
+.anim .stack-wrap .stack ol > li,
+.anim .stack-wrap .stack .base{
+  opacity:0;transform:translateY(26px);
+  transition:opacity .2s ease,transform .2s ease;
+}
+.anim .stack-wrap.in .stack ol > li,
+.anim .stack-wrap.in .stack .base{
+  opacity:1;transform:none;
+  transition:
+    opacity   calc(.45s * var(--fig-scale)) ease,
+    transform calc(.45s * var(--fig-scale)) cubic-bezier(.2,.7,.2,1);
+}
+.anim .stack-wrap.in .stack .base{transition-delay:0s}
+.anim .stack-wrap.in .stack ol > li:nth-child(6){transition-delay:calc(.15s * var(--fig-scale))}
+.anim .stack-wrap.in .stack ol > li:nth-child(5){transition-delay:calc(.30s * var(--fig-scale))}
+.anim .stack-wrap.in .stack ol > li:nth-child(4){transition-delay:calc(.45s * var(--fig-scale))}
+.anim .stack-wrap.in .stack ol > li:nth-child(3){transition-delay:calc(.60s * var(--fig-scale))}
+.anim .stack-wrap.in .stack ol > li:nth-child(2){transition-delay:calc(.75s * var(--fig-scale))}
+.anim .stack-wrap.in .stack ol > li:nth-child(1){transition-delay:calc(.90s * var(--fig-scale))}
+/* 左の矢印も下から上へ、層の積み上がりと同じ時間をかけて伸びる */
+.anim .stack-wrap .axis i{clip-path:inset(100% -10px 0 -10px);transition:clip-path .2s ease}
+.anim .stack-wrap.in .axis i{
+  clip-path:inset(0 -10px 0 -10px);
+  transition:clip-path calc(1.35s * var(--fig-scale)) 0s cubic-bezier(.2,.7,.2,1);
+}
+
+/* --- 図2：①トップダウン型を上から → ②ボトムアップ型を下から --- */
+.anim .compare .flow ol > li{opacity:0;transition:opacity .2s ease,transform .2s ease}
+.anim .compare .flow:not(.focus) ol > li{transform:translateY(-12px)}
+.anim .compare .flow.focus ol > li{transform:translateY(22px)}
+.anim .compare.in .flow ol > li{
+  opacity:1;transform:none;
+  transition:
+    opacity   calc(.45s * var(--fig-scale)) ease,
+    transform calc(.45s * var(--fig-scale)) cubic-bezier(.2,.7,.2,1);
+}
+/* ① 左：上から（DOM順＝手順どおり） */
+.anim .compare.in .flow:not(.focus) ol > li:nth-child(1){transition-delay:calc(.10s * var(--fig-scale))}
+.anim .compare.in .flow:not(.focus) ol > li:nth-child(2){transition-delay:calc(.30s * var(--fig-scale))}
+.anim .compare.in .flow:not(.focus) ol > li:nth-child(3){transition-delay:calc(.50s * var(--fig-scale))}
+.anim .compare.in .flow:not(.focus) ol > li:nth-child(4){transition-delay:calc(.70s * var(--fig-scale))}
+.anim .compare .flow .result{opacity:0;transition:opacity .2s ease}
+.anim .compare.in .flow:not(.focus) .result{
+  opacity:1;transition:opacity calc(.6s * var(--fig-scale)) calc(1.00s * var(--fig-scale)) ease;
+}
+/* ② 右：左が終わってから、下から（DOM順＝手順＝下→上） */
+.anim .compare.in .flow.focus ol > li:nth-child(1){transition-delay:calc(1.20s * var(--fig-scale))}
+.anim .compare.in .flow.focus ol > li:nth-child(2){transition-delay:calc(1.40s * var(--fig-scale))}
+.anim .compare.in .flow.focus ol > li:nth-child(3){transition-delay:calc(1.60s * var(--fig-scale))}
+.anim .compare.in .flow.focus ol > li:nth-child(4){transition-delay:calc(1.80s * var(--fig-scale))}
+.anim .compare.in .flow.focus .result{
+  opacity:1;transition:opacity calc(.6s * var(--fig-scale)) calc(2.25s * var(--fig-scale)) ease;
+}
+
+/* --- ヒーロー：画面に入るたびに再生（.hero.in の間だけ演出を当てる） --- */
+@keyframes a-rise{from{opacity:0;transform:translateY(16px)}}
+@keyframes a-bar{from{width:0}}
+/* 入る前（画面外のリセット状態）は隠しておく */
+.anim .hero:not(.in) .hero-kicker,.anim .hero:not(.in) h1 span,.anim .hero:not(.in) .hero-sub,
+.anim .hero:not(.in) .hero-note,.anim .hero:not(.in) .place,.anim .hero:not(.in) .hero-cta,
+.anim .hero:not(.in) .cover{opacity:0}
+.anim .hero:not(.in) h1::before{width:0}
+.anim .hero.in .hero-kicker,.anim .hero.in h1 span,.anim .hero.in .hero-sub,
+.anim .hero.in .hero-note,.anim .hero.in .place,.anim .hero.in .hero-cta,.anim .hero.in .cover{
+  animation:a-rise calc(.75s * var(--hero-scale)) cubic-bezier(.2,.7,.2,1) both;
+}
+.anim .hero.in h1::before{animation:a-bar calc(.6s * var(--hero-scale)) calc(.05s * var(--hero-scale)) cubic-bezier(.2,.7,.2,1) both}
+.anim .hero.in .hero-kicker{animation-delay:calc(.10s * var(--hero-scale))}
+.anim .hero.in h1 span:nth-child(1){animation-delay:calc(.20s * var(--hero-scale))}
+.anim .hero.in h1 span:nth-child(2){animation-delay:calc(.32s * var(--hero-scale))}
+.anim .hero.in .hero-sub{animation-delay:calc(.50s * var(--hero-scale))}
+.anim .hero.in .hero-note{animation-delay:calc(.60s * var(--hero-scale))}
+.anim .hero.in .place{animation-delay:calc(.72s * var(--hero-scale))}
+.anim .hero.in .hero-cta{animation-delay:calc(.84s * var(--hero-scale))}
+.anim .hero.in .cover{animation-delay:calc(.40s * var(--hero-scale))}
+
+/* --- NAV：下線が左から伸びる／閲覧中のセクションを示す --- */
+.anim .nav a{
+  background:linear-gradient(var(--accent),var(--accent)) no-repeat 0 calc(100% + 3px) / 0% .2em;
+  background-origin:content-box;
+  transition:background-size .25s ease,color .2s;
+}
+.anim .nav a:hover{text-decoration:none;background-size:100% .2em}
+.anim .nav a[aria-current="true"]{color:var(--ink);background-size:100% .2em}
+@keyframes a-nav-in{from{opacity:0;transform:translateY(-6px)}}
+.js.anim .nav.open{animation:a-nav-in .2s ease}
+
+/* --- ボタン類のホバー --- */
+@media (prefers-reduced-motion:no-preference){
+  .btn{transition:background-color .15s,color .15s}
+}
+
+@media print{
+  .anim .rv,.anim .stack-wrap .stack ol > li,.anim .stack-wrap .stack .base,
+  .anim .compare .flow ol > li,.anim .compare .flow .result,
+  .anim .hero:not(.in) *{opacity:1 !important;transform:none !important;animation:none !important}
+  .anim .section-head h2::before,.anim .hero:not(.in) h1::before{width:44px}
+  .anim .key{background-size:100% .2em}
+  .anim .stack-wrap .axis i{clip-path:none}
+}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">村野製作所</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="メニューを開く">
+      <span class="bars" aria-hidden="true"></span>
+    </button>
+    <nav class="nav" id="site-nav" aria-label="ページ内ナビゲーション">
+      <a href="#about">企画</a>
+      <a href="#concept">人格モデル</a>
+      <a href="#technology">技術</a>
+      <a href="#contents">内容</a>
+      <a href="#circle">頒布情報</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top" aria-labelledby="title">
+  <div class="wrap">
+    <div>
+      <p class="hero-kicker">ラブライブ！ 技術同人誌</p>
+      <h1 id="title">
+        <span>ゼロからつくる</span>
+        <span>日野下インストール</span>
+      </h1>
+      <p class="hero-sub">ボトムアップ型AIの未来と可能性</p>
+      <p class="hero-note">
+        <span class="nb"></span>日野下花帆の人格を、AIで再現できるのか。
+        <span class="nb">その問いに技術の側から向き合う一冊です。</span>
+      </p>
+
+      <div class="place">
+        <span class="place-label">コミックマーケットC109（2026年冬）</span>
+        <span class="place-main"><a class="space-link" href="https://webcatalog-auth.circle.ms/Perma/Circle/10526929/" target="_blank" rel="noopener noreferrer" aria-label="1日目（火）西2 い31b（コミケWebカタログのサークルページを新しいタブで開く）">1日目（火）西2 い31b</a></span>
+        <span class="place-sub">サークル名　村野製作所</span>
+      </div>
+
+      <div class="hero-cta">
+        <a class="btn" href="#circle">頒布情報を見る</a>
+        <a class="btn ghost" href="#about">企画について</a>
+      </div>
+    </div>
+
+    <figure class="cover" id="cover">
+      <div class="cover-frame" id="cover-frame" role="img" aria-label="表紙画像は準備中です">
+        <span class="cover-ph-title">ゼロからつくる<br>日野下インストール</span>
+        <span class="cover-ph-note">表紙画像は準備中です</span>
+      </div>
+      <figcaption>書影は決まり次第差し替えます。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="section" id="about" aria-labelledby="about-h">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="about-h">企画について</h2>
+      <p class="en">About</p>
+    </div>
+    <div class="prose">
+      <p class="lead">日野下花帆の人格を、AIで再現できるだろうか。</p>
+      <p>タイトルにある<strong class="key">「日野下インストール」</strong>は、105期活動記録 第3話『星に憧れて、花は舞う』に由来する言葉です。風邪で倒れた日野下花帆に代わり、金沢のロックフェスへ向けてみんなを引っ張ることになった<strong class="key">村野さやか</strong>が、花帆になりきろうとしました。この行動が、劇中では<strong class="key">「日野下インストール」</strong>と呼ばれています。</p>
+      <p>人が、ほかの誰かの人格を自分の中に取り込もうとする。その試みを、AIでやってみたらどうなるのか。本書の問いは、そこから始まります。サークル名の村野製作所も、さやかと同じ「村野」です。さやかが花帆をインストールしようとしたように、こちらはAIで、<strong class="key">日野下花帆をインストールできるのか</strong>を確かめます。</p>
+      <p>セリフを真似させるだけなら、すでに多くの人が試しています。けれど「その人らしさ」は、決まり文句の集まりではありません。何を経験し、何を覚え、どう感じ、何を大切にして、どう判断するのか。その積み重ねが、ひとつの発話や行動として現れます。</p>
+      <p>この本は、その積み重ねをデータから組み立て直せるかを、手を動かしながら確かめていく技術同人誌です。<strong class="key">トップダウン</strong>に「それらしさ」を与えるのではなく、元になるデータから人格を構成する要素を一つずつ積み上げる、<strong class="key">ボトムアップ型AI</strong>という考え方を軸にしています。</p>
+
+      <h3>題材にするデータ</h3>
+      <ul class="data-list">
+        <li><b>活動記録</b><span>活動の中で積み重なってきた出来事</span></li>
+        <li><b>Fes×LIVE</b><span>ライブでの姿・言葉</span></li>
+        <li><b>With×MEETS</b><span>ファンとの交流の場での言葉</span></li>
+      </ul>
+
+      <div class="callout">
+        <strong>この本が目指すこと、言わないこと</strong>
+        <p>本書は技術的な可能性を探る試みです。日野下花帆そのものを<strong class="key">再現できた、とは主張しません</strong>。確かめられたことと、まだ確かめられていないことは、本文の中で分けて書きます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONCEPT ================= -->
+<section class="section alt" id="concept" aria-labelledby="concept-h">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="concept-h">人格形成モデル</h2>
+      <p class="en">Concept</p>
+    </div>
+    <div>
+      <div class="prose">
+        <p class="lead">人格は、<strong class="key">6つの要素</strong>の積み重ねとして捉える。</p>
+        <p>本書では、人格を「経験」「記憶」「感情」「価値観」「思考・判断」「発話・行動」の<strong class="key">6要素</strong>で整理します。私たちが外から観測できるのは、いちばん上の発話・行動だけです。その下にある要素を、元のデータから読み取って積み上げていくのが、<strong class="key">ボトムアップ</strong>の考え方です。</p>
+      </div>
+
+      <figure class="diagram">
+        <p class="diagram-title" id="stack-t">図1　人格を構成する6つの要素</p>
+        <div class="stack-wrap" role="group" aria-labelledby="stack-t">
+          <div class="axis" aria-hidden="true"><span>外から見える</span><i></i><span>データに近い</span></div>
+          <div class="stack">
+            <ol>
+              <li class="top"><span class="name">発話・行動</span><span class="gloss">外に現れる言葉とふるまい。私たちが実際に観測できる部分</span></li>
+              <li><span class="name">思考・判断</span><span class="gloss">状況をどう受け取り、何を選ぶか</span></li>
+              <li><span class="name">価値観</span><span class="gloss">何を大切にし、何を譲らないか</span></li>
+              <li><span class="name">感情</span><span class="gloss">出来事に対する気持ちの動き</span></li>
+              <li><span class="name">記憶</span><span class="gloss">覚えていること、結びついている出来事</span></li>
+              <li><span class="name">経験</span><span class="gloss">実際に過ごしてきた時間と出来事</span></li>
+            </ol>
+            <div class="base">
+              <b>元になるデータ</b>
+              <ul><li>活動記録</li><li>Fes×LIVE</li><li>With×MEETS</li></ul>
+            </div>
+          </div>
+        </div>
+        <figcaption>下の層ほどデータに近く、上の層ほど外から見える。<br>各要素をデータからどう読み取るかが、本書の主な論点です。</figcaption>
+      </figure>
+
+      <figure class="diagram">
+        <p class="diagram-title" id="cmp-t">図2　「模倣・検索」と「再構築」のちがい</p>
+        <div class="compare" role="group" aria-labelledby="cmp-t">
+          <div class="flow">
+            <h4>セリフの模倣／RAGによる検索応答</h4>
+            <p class="tag"><b>トップダウン型</b>発話の表面を扱う</p>
+            <ol>
+              <li>質問を受け取る</li>
+              <li>似たセリフ・資料を探す</li>
+              <li>見つかった内容をLLMに渡す</li>
+              <li class="dim">それらしい文章を返す</li>
+            </ol>
+            <p class="result">資料にある言葉に近い返答はできる。ただし、なぜそう言うのかという内側は扱っていない。</p>
+          </div>
+          <div class="flow focus">
+            <h4>人格の再構築</h4>
+            <p class="tag"><b>ボトムアップ型</b>発話の手前にある要素を扱う</p>
+            <ol class="up">
+              <li>データを集める</li>
+              <li>経験・記憶・感情・価値観に構造化する</li>
+              <li>思考・判断のモデルを組み立てる</li>
+              <li class="goal">状況に応じて発話・行動を生成する</li>
+            </ol>
+            <p class="result">本書が検証したいのはこちら。RAGなどの技術は、この構造を支える部品として使います。</p>
+          </div>
+        </div>
+        <figcaption>RAGは有用な手段ですが、それだけでは<strong class="key">人格の再構築</strong>になりません。<br>この区別が本書の出発点です。</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TECHNOLOGY ================= -->
+<section class="section" id="technology" aria-labelledby="tech-h">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="tech-h">扱う技術</h2>
+      <p class="en">Technology</p>
+    </div>
+    <div>
+      <div class="prose">
+        <p class="lead">道具立ては4つ。組み合わせ方が問われる。</p>
+      </div>
+
+      <dl class="tech" style="margin-top:36px">
+        <div>
+          <dt>LLM<small>大規模言語モデル</small></dt>
+          <dd>
+            <p>文章を生成する中核の部品です。素のままでは「日野下花帆」についての知識も、判断の癖も持っていません。</p>
+            <p class="role">本書での役割：発話・行動を生み出す最終段</p>
+          </dd>
+        </div>
+        <div>
+          <dt>RAG<small>検索拡張生成</small></dt>
+          <dd>
+            <p>外部の資料を検索し、その内容をLLMに渡して回答させる仕組みです。根拠となる資料を参照できる一方で、検索結果を並べるだけでは人格にはなりません。</p>
+            <p class="role">本書での役割：記憶や経験を参照するための部品</p>
+          </dd>
+        </div>
+        <div>
+          <dt>データ構造化<small>Structuring</small></dt>
+          <dd>
+            <p>活動記録、Fes×LIVE、With×MEETSといった生のデータを、AIが扱える形に整理する工程です。出来事、発言、場面、感情などを切り分けて記録します。</p>
+            <p class="role">本書での役割：6要素へ橋渡しをする下ごしらえ</p>
+          </dd>
+        </div>
+        <div>
+          <dt>人格モデル<small>Persona model</small></dt>
+          <dd>
+            <p>経験、記憶、感情、価値観、思考・判断、発話・行動を、ひとまとまりの構造として表したものです。これをLLMに与えたとき、応答がどう変わるのかを確かめます。</p>
+            <p class="role">本書での役割：検証の対象そのもの</p>
+          </dd>
+        </div>
+      </dl>
+
+      <div class="prose" style="margin-top:56px">
+        <h3 style="margin-top:0">効果は、条件を分けて確かめる</h3>
+        <p>「よくなった気がする」で終わらせないために、与える情報を段階的に増やして応答を比べる設計をとります。</p>
+      </div>
+      <div class="cond" role="list" aria-label="比較する4つの条件">
+        <div class="cond-row" role="listitem"><b>A</b><span>LLMだけ（追加情報なし）</span></div>
+        <div class="cond-row" role="listitem"><b>B</b><span>システムプロンプトで人物像を指示</span></div>
+        <div class="cond-row" role="listitem"><b>C</b><span>システムプロンプト＋RAG</span></div>
+        <div class="cond-row last" role="listitem"><b>D</b><span>価値観カード＋RAG</span></div>
+      </div>
+      <div class="prose" style="margin-top:20px">
+        <p style="font-size:.9375rem;color:var(--ink-2)">応答の評価には、LLMを審査役に使う方法（LLM-as-a-Judge）も取り入れます。<br>結果の読み方と限界は、本文で示します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTENTS ================= -->
+<section class="section alt" id="contents" aria-labelledby="contents-h">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="contents-h">本の内容</h2>
+      <p class="en">Contents</p>
+    </div>
+    <div>
+      <!-- 章立てが確定したら SITE.chapters に追加すると、ここに表示されます -->
+      <div id="chapters-block" hidden>
+        <div class="prose"><h3 style="margin-top:0">章立て</h3></div>
+        <ol class="chapters" id="chapters" style="margin-top:20px"></ol>
+      </div>
+
+      <div id="topics-block">
+        <div class="prose"><h3 style="margin-top:0">扱う主な内容</h3></div>
+        <ul class="topics" style="margin-top:20px">
+          <li><b>なぜ「セリフの模倣」では足りないのか</b><span>模倣・検索応答と人格の再構築を区別する</span></li>
+          <li><b>人格を6つの要素で捉える</b><span>経験、記憶、感情、価値観、思考・判断、発話・行動</span></li>
+          <li><b>データを構造化する</b><span>活動記録・Fes×LIVE・With×MEETSを扱える形にする</span></li>
+          <li><b>LLMとRAGで組み立てる</b><span>人格モデルを与えたときの応答の変化を観察する</span></li>
+          <li><b>条件を分けて比べる</b><span>4つの条件での比較と、評価の方法・限界</span></li>
+        </ul>
+        <p class="pending" id="chapters-pending">章立ては確定次第、このページに掲載します。<br>上は現時点で扱う予定の内容で、構成や順序は変わる場合があります。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CIRCLE ================= -->
+<section class="section" id="circle" aria-labelledby="circle-h">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="circle-h">頒布情報</h2>
+      <p class="en">Circle &amp; Event</p>
+    </div>
+    <div>
+      <dl class="info">
+        <div><dt>サークル名</dt><dd>村野製作所</dd></div>
+        <div><dt>イベント</dt><dd>コミックマーケットC109（2026年冬）</dd></div>
+        <div data-optional="date" hidden><dt>開催日</dt><dd data-field="date"></dd></div>
+        <div><dt>配置</dt><dd class="strong"><a class="space-link" href="https://webcatalog-auth.circle.ms/Perma/Circle/10526929/" target="_blank" rel="noopener noreferrer" aria-label="1日目（火）西2 い31b（コミケWebカタログのサークルページを新しいタブで開く）">1日目（火）　西2 い31b</a><small>配置をタップすると、コミケWebカタログのサークルページを開きます。</small></dd></div>
+        <div><dt>ジャンル</dt><dd>ラブライブ！</dd></div>
+        <div><dt>頒布物</dt><dd>ゼロからつくる日野下インストール<small>ボトムアップ型AIの未来と可能性</small></dd></div>
+        <div data-optional="price" hidden><dt>頒布価格</dt><dd data-field="price"></dd></div>
+        <div data-optional="pages" hidden><dt>ページ数</dt><dd data-field="pages"></dd></div>
+        <div data-optional="url" hidden><dt>公開ページ</dt><dd><a data-field="url" data-link="1" rel="noopener noreferrer"></a></dd></div>
+        <div data-optional="sns" hidden><dt>お知らせ</dt><dd><ul class="links" id="sns"></ul></dd></div>
+      </dl>
+      <div class="prose" style="margin-top:32px">
+        <p style="font-size:.9375rem;color:var(--ink-2)">価格やページ数など未定の項目は決まり次第このページに追加します。<br>当日はお気軽にお立ち寄りください。</p>
+      </div>
+
+      <!-- 共有ボタン：JSで生成（SITE.share / SITE.url から）。URLが無い場合は非表示 -->
+      <div class="share" id="share" hidden>
+        <p class="share-title" id="share-t">このページを共有</p>
+        <ul class="share-list" id="share-list" aria-labelledby="share-t"></ul>
+        <span class="share-status" id="share-status" role="status" aria-live="polite"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>本ページおよび頒布物は、非公式のファン制作物です。</strong></p>
+    <p>公式・関連企業・権利者とは一切関係がありません。</p>
+    <p>『ラブライブ！』シリーズに関する名称・キャラクター等の権利は、各権利者に帰属します。<br>本ページには公式の画像・ロゴを使用していません。</p>
+    <p class="fine" id="tm-note" hidden>X、LINE は、それぞれ各社の商標または登録商標です。</p>
+    <p class="fine copy">&copy; 村野製作所</p>
+    <a class="to-top" href="#top">ページの先頭へ戻る</a>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   SITE：未確定の情報はここを書き換えるだけで反映されます。
+   空欄（""、[]）の項目は、ページ上で自動的に非表示になります。
+   ============================================================ */
+var SITE = {
+  date:  "2026年12月29日（火）",   // 開催日。違う場合・不要な場合は書き換え／空欄に
+  price: "",
+  pages: "",                        // 例："120ページ"
+  url:   "https://airmiya.jp/murano", // 公開ページURL（https:// から）
+  cover: { src: "", alt: "" },      // 表紙画像。例：{ src:"cover.jpg", alt:"『ゼロからつくる日野下インストール』表紙" }
+  sns:   [                          // 例：{ label:"X（@account）", href:"https://x.com/account" }
+    { label: "X（airmiya）", href: "https://x.com/airmiya" }
+  ],
+  share: {                          // 共有ボタン。text＝投稿文、hashtags＝["C109"] のように（#は不要）
+    text: "ゼロからつくる日野下インストール｜村野製作所　コミックマーケットC109（2026年冬）1日目 西2 い31b",
+    hashtags: [],
+    // 公式ロゴを使う場合のみ、配布元から入手した画像のパスを入れる（改変しないこと）。空欄なら汎用アイコン。
+    // Xのロゴは黒を想定（ホバーで白に反転）。白ロゴの場合は .mono の指定を外すこと。
+    logos: { x: "https://airmiya.jp/murano/images/x_logo.svg", line: "https://airmiya.jp/murano/images/line_logo.svg" }
+  },
+  chapters: [                       // 例：{ title:"第1章　…", summary:"…" }
+    // { title: "", summary: "" }
+  ]
+};
+
+/* ハンバーガーメニュー */
+(function(){
+  "use strict";
+  var btn = document.querySelector(".menu-btn");
+  var nav = document.getElementById("site-nav");
+  if(!btn || !nav) return;
+  var mq = window.matchMedia("(min-width:768px)");
+  function set(open){
+    nav.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    btn.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
+  }
+  btn.addEventListener("click", function(){ set(btn.getAttribute("aria-expanded") !== "true"); });
+  nav.addEventListener("click", function(e){ if(e.target.closest("a")) set(false); });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && btn.getAttribute("aria-expanded") === "true"){ set(false); btn.focus(); }
+  });
+  var onChange = function(){ if(mq.matches) set(false); };
+  if(mq.addEventListener) mq.addEventListener("change", onChange); else mq.addListener(onChange);
+})();
+
+(function(){
+  "use strict";
+  var isHttp = function(u){ return /^https?:\/\//i.test(u || ""); };
+
+  // 単純な項目（date / price / pages / url）
+  ["date","price","pages","url"].forEach(function(key){
+    var v = SITE[key];
+    if(!v) return;
+    var el = document.querySelector('[data-field="'+key+'"]');
+    if(!el) return;
+    if(key === "url"){
+      if(!isHttp(v)) return;
+      el.href = v; el.textContent = v;
+    } else {
+      el.textContent = v;
+    }
+    var box = el.closest("[data-optional]");
+    if(box) box.hidden = false;
+  });
+
+  // 表紙
+  if(SITE.cover && SITE.cover.src){
+    var frame = document.getElementById("cover-frame");
+    var img = new Image();
+    img.src = SITE.cover.src;
+    img.alt = SITE.cover.alt || "表紙";
+    img.width = 182; img.height = 257;
+    img.onload = function(){
+      frame.innerHTML = "";
+      frame.className = "cover-frame has-image";
+      frame.removeAttribute("role");
+      frame.removeAttribute("aria-label");
+      frame.appendChild(img);
+      var cap = document.querySelector("#cover figcaption");
+      if(cap) cap.hidden = true;
+    };
+  }
+
+  // SNS
+  var snsList = (SITE.sns || []).filter(function(s){ return s && s.label && isHttp(s.href); });
+  if(snsList.length){
+    var ul = document.getElementById("sns");
+    snsList.forEach(function(s){
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = s.href; a.textContent = s.label; a.rel = "noopener noreferrer";
+      li.appendChild(a); ul.appendChild(li);
+    });
+    document.querySelector('[data-optional="sns"]').hidden = false;
+  }
+
+  // 共有ボタン（URLは SITE.url、無ければ現在のURL）
+  (function(){
+    var url = isHttp(SITE.url) ? SITE.url : (isHttp(location.href) ? location.href : "");
+    var box = document.getElementById("share");
+    if(!url || !box) return;
+    var cfg = SITE.share || {};
+    var text = cfg.text || document.title;
+    var tags = (cfg.hashtags || []).filter(Boolean).map(function(t){ return String(t).replace(/^#/, ""); }).join(",");
+    var enc = encodeURIComponent;
+    var list = document.getElementById("share-list");
+    var status = document.getElementById("share-status");
+
+    // 汎用アイコン（各サービスのロゴではありません）。stroke=currentColor
+    var ICONS = {
+      post:  '<path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/>',
+      chat:  '<path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.2 8.7 8.7 0 0 1-3.6-.8L3 21l1.6-4.7A8 8 0 0 1 3.5 11.5 8.4 8.4 0 0 1 12 3.3a8.4 8.4 0 0 1 9 8.2z"/>',
+      link:  '<path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>',
+      share: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>'
+    };
+    var LOGOS = cfg.logos || {};
+    var LOGO_KEY = { post: "x", chat: "line" };
+    var usedLogo = false;
+    function fill(el, icon, label){
+      var src = LOGOS[LOGO_KEY[icon]];
+      if(src){
+        usedLogo = true;
+        var img = new Image();
+        img.className = "ico" + (icon === "post" ? " mono" : "");
+        img.src = src; img.alt = ""; img.width = 20; img.height = 20;
+        el.appendChild(img);
+      } else {
+        el.innerHTML = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + ICONS[icon] + '</svg>';
+      }
+      var s = document.createElement("span"); s.textContent = label; el.appendChild(s);
+    }
+
+    function addLink(label, href, aria, icon){
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.className = "btn ghost"; a.href = href; fill(a, icon, label);
+      a.target = "_blank"; a.rel = "noopener noreferrer";
+      if(aria) a.setAttribute("aria-label", aria);
+      li.appendChild(a); list.appendChild(li);
+    }
+    function addButton(label, onClick, icon){
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "btn ghost"; fill(b, icon, label);
+      b.addEventListener("click", onClick);
+      li.appendChild(b); list.appendChild(li);
+    }
+    function say(msg){
+      status.textContent = msg;
+      clearTimeout(say.t); say.t = setTimeout(function(){ status.textContent = ""; }, 3000);
+    }
+
+    addLink("Xで共有",
+      "https://x.com/intent/post?text=" + enc(text) + "&url=" + enc(url) + (tags ? "&hashtags=" + enc(tags) : ""),
+      "Xで共有（新しいタブで開きます）", "post");
+    addLink("LINEで共有",
+      "https://social-plugins.line.me/lineit/share?url=" + enc(url),
+      "LINEで共有（新しいタブで開きます）", "chat");
+
+    addButton("URLをコピー", function(){
+      function done(){ say("URLをコピーしました。"); }
+      function fail(){ say("コピーできませんでした。アドレスバーのURLをコピーしてください。"); }
+      if(navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(url).then(done, fail);
+      } else {
+        try{
+          var ta = document.createElement("textarea");
+          ta.value = url; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta); ta.select();
+          var ok = document.execCommand("copy");
+          document.body.removeChild(ta);
+          ok ? done() : fail();
+        }catch(e){ fail(); }
+      }
+    }, "link");
+
+    if(navigator.share){
+      addButton("その他のアプリで共有", function(){
+        navigator.share({ title: document.title, text: text, url: url }).catch(function(){});
+      }, "share");
+    }
+    box.hidden = false;
+    if(usedLogo){ var tm = document.getElementById("tm-note"); if(tm) tm.hidden = false; }
+  })();
+
+  // 章立て
+  var chs = (SITE.chapters || []).filter(function(c){ return c && c.title; });
+  if(chs.length){
+    var ol = document.getElementById("chapters");
+    chs.forEach(function(c){
+      var li = document.createElement("li");
+      var d = document.createElement("div");
+      var b = document.createElement("b"); b.textContent = c.title; d.appendChild(b);
+      if(c.summary){ var s = document.createElement("span"); s.textContent = c.summary; d.appendChild(s); }
+      li.appendChild(d); ol.appendChild(li);
+    });
+    document.getElementById("chapters-block").hidden = false;
+    document.getElementById("topics-block").hidden = true;
+  }
+})();
+
+/* ============================================================
+   アニメーション制御（html.anim のときのみ動作）
+   ・画面に入ったら .in を付け、画面から完全に出たら外す＝入るたびに再生
+   ・説明文・図・dl/表の行は「待ち行列」に入れ、上から順に1つずつ表示する
+     （上の要素の表示が終わってから次が始まる。速さ・間隔は CSS の変数で調整）
+   ============================================================ */
+(function(){
+  "use strict";
+  var root = document.documentElement;
+  if(!root.classList.contains("anim")) return;
+
+  function cssNum(name, fallback){
+    var v = parseFloat(getComputedStyle(root).getPropertyValue(name));
+    return isNaN(v) ? fallback : v;
+  }
+
+  // 行（dl・表）と、行ではない文章ブロック
+  var ROW_SEL  = ".data-list li, .tech > div, .topics li, .chapters li, .info > div, .cond-row";
+  var TEXT_SEL = ".section .prose > *:not(.data-list), .pending, .share, .diagram-title, .diagram figcaption";
+  var FIG_SEL  = ".stack-wrap, .compare";              // 図（独自の演出）
+  var IMM_SEL  = ".hero, .section-head";               // 待たずに即時再生
+
+  var rows  = [].slice.call(document.querySelectorAll(ROW_SEL));
+  var texts = [].slice.call(document.querySelectorAll(TEXT_SEL));
+  var figs  = [].slice.call(document.querySelectorAll(FIG_SEL));
+  var imms  = [].slice.call(document.querySelectorAll(IMM_SEL));
+  rows.concat(texts).forEach(function(el){ el.classList.add("rv"); });
+
+  // ---- 再生設定：true＝画面に入るたびに毎回再生／false＝初回の1回だけ ----
+  var REPLAY = {
+    hero:    true,    // ヒーロー（ページ冒頭）
+    figures: true,    // 図1・図2
+    heads:   false,   // セクション見出し
+    texts:   false,   // 説明文・キャプション
+    rows:    false    // dl・表の行
+  };
+  // 図を「上の要素が終わるまで待つ」か。false＝画面に入ったらすぐ再生（前後の文と同時でもOK）
+  var FIG_WAIT = false;
+  function replays(el){
+    if(el.matches(".hero"))         return REPLAY.hero;
+    if(el.matches(FIG_SEL))         return REPLAY.figures;
+    if(el.matches(".section-head")) return REPLAY.heads;
+    if(el.matches(ROW_SEL))         return REPLAY.rows;
+    return REPLAY.texts;
+  }
+  function retire(el){ enter.unobserve(el); leave.unobserve(el); }   // 1回きりの要素は役目を終えたら監視を外す
+
+  // 各要素の「表示にかかる時間」(秒)。CSSの時間と対応させている。
+  function duration(el){
+    var S = cssNum("--anim-scale", 1), F = cssNum("--fig-scale", 1);
+    if(el.matches(".stack-wrap")) return 1.35 * F;
+    if(el.matches(".compare"))    return 2.85 * F;
+    return .6 * S;
+  }
+  // 次の要素が始まるまでの待ち時間(ms)
+  function waitMs(el){
+    var chain = cssNum("--chain", 1), rowsK = cssNum("--chain-rows", .35);
+    var k = el.matches(ROW_SEL) ? rowsK : chain;
+    return duration(el) * k * 1000;
+  }
+
+  // ---- 待ち行列 ----
+  var queue = [], busy = false, timer = null;
+  function docOrder(a, b){ return (a.compareDocumentPosition(b) & 4) ? -1 : 1; }
+  function showKeys(el, on){
+    [].forEach.call(el.querySelectorAll(".key"), function(k){ k.classList.toggle("in", on); });
+  }
+  function reveal(el){ el.classList.add("in"); showKeys(el, true); }
+  function hide(el){
+    var i = queue.indexOf(el); if(i > -1) queue.splice(i, 1);
+    el.classList.remove("in"); showKeys(el, false);
+  }
+  function pump(){
+    if(busy) return;
+    var el;
+    while((el = queue.shift())){ if(el.__vis && !el.classList.contains("in")) break; el = null; }
+    if(!el) return;
+    busy = true;
+    reveal(el);
+    if(!replays(el)) retire(el);
+    clearTimeout(timer);
+    timer = setTimeout(function(){ busy = false; pump(); }, waitMs(el));
+  }
+  function enqueue(el){
+    if(el.classList.contains("in") || queue.indexOf(el) > -1) return;
+    queue.push(el); queue.sort(docOrder); pump();
+  }
+
+  // 入場：15%見えたら（退場：完全に画面外へ出たらリセット。境目のちらつきを防ぐため閾値を分ける）
+  var queued = rows.concat(texts, figs);
+  var enter = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.__vis = true;
+      if(e.target.matches(IMM_SEL)){ e.target.classList.add("in"); if(!replays(e.target)) retire(e.target); }
+      else if(e.target.matches(FIG_SEL) && !FIG_WAIT){ reveal(e.target); if(!replays(e.target)) retire(e.target); }
+      else enqueue(e.target);
+    });
+  }, { threshold: .15, rootMargin: "0px 0px -6% 0px" });
+  var leave = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting) return;
+      e.target.__vis = false;
+      var el = e.target;
+      if(!replays(el)){            // 1回きり：表示済みなら何もしない（未表示なら待ち行列から外すだけ）
+        if(!el.classList.contains("in")){ var i = queue.indexOf(el); if(i > -1) queue.splice(i, 1); }
+        return;
+      }
+      if(el.matches(IMM_SEL)) el.classList.remove("in"); else hide(el);
+    });
+  }, { threshold: 0 });
+  queued.concat(imms).forEach(function(el){ enter.observe(el); leave.observe(el); });
+
+  // NAV：閲覧中のセクションを示す
+  var links = {};
+  [].forEach.call(document.querySelectorAll("#site-nav a[href^='#']"), function(a){ links[a.getAttribute("href").slice(1)] = a; });
+  var spy = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var a = links[e.target.id]; if(!a) return;
+      if(e.isIntersecting){
+        Object.keys(links).forEach(function(k){ links[k].removeAttribute("aria-current"); });
+        a.setAttribute("aria-current", "true");
+      } else if(a.getAttribute("aria-current")){
+        a.removeAttribute("aria-current");
+      }
+    });
+  }, { rootMargin: "-35% 0px -60% 0px" });
+  Object.keys(links).forEach(function(id){ var s = document.getElementById(id); if(s) spy.observe(s); });
+
+  window.__animReady = true;
+})();
+</script>
+</body>
+</html>
