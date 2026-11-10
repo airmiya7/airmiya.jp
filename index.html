@@ -5,38 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>airmiya.jp</title>
 <meta name="description" content="airmiya.jp - Research and Development.">
+<meta name="theme-color" content="#EAEEF7">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #F7F5EF;
-    --paper: #FFFFFF;
     --ink: #1C1B19;
-    --ink-soft: #5B584F;
-    --navy: #1B2A56;
+    --ink-soft: #4A4843;
     --blue: #2454C7;
     --blue-soft: #4E7BE0;
-    --line: #DCD6C8;
-    --radius: 22px;
+    --radius: 26px;
   }
 
   *{ box-sizing: border-box; }
 
   html{ -webkit-font-smoothing: antialiased; }
 
+  /* すりガラスの透け感を見せるため、背景は彩度高めのカラーメッシュ */
   body{
     margin: 0;
-    background: var(--bg);
-    background-image:
-      radial-gradient(560px 420px at 8% -8%, rgba(36,84,199,0.16), transparent 65%),
-      radial-gradient(620px 480px at 100% 8%, rgba(78,123,224,0.16), transparent 60%),
-      radial-gradient(700px 520px at 50% 100%, rgba(36,84,199,0.10), transparent 65%);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    min-height: 100vh;
     color: var(--ink);
     font-family: 'Noto Sans JP', sans-serif;
-    min-height: 100vh;
+    background:
+      radial-gradient(640px 480px at 6% -6%, rgba(36,84,199,0.55), transparent 60%),
+      radial-gradient(560px 480px at 96% 6%, rgba(78,123,224,0.45), transparent 58%),
+      radial-gradient(620px 520px at 30% 95%, rgba(120,70,220,0.35), transparent 60%),
+      radial-gradient(560px 480px at 90% 92%, rgba(30,170,160,0.35), transparent 58%),
+      linear-gradient(180deg, #EFF2F8 0%, #E4E8F3 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
   .wrap{
@@ -53,16 +52,13 @@
 
   .hero h1{
     display: inline-block;
-    position: relative;
     font-family: 'Noto Sans JP', sans-serif;
     font-weight: 700;
     font-size: clamp(26px, 5vw, 38px);
     margin: 0 0 10px;
     letter-spacing: 0.02em;
     color: var(--ink);
-    text-shadow:
-      0 1px 0 rgba(255,255,255,0.85),
-      0 -1px 1px rgba(27,42,86,0.28);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.9);
   }
 
   .hero p{
@@ -76,82 +72,123 @@
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     font-size: 13px;
-    color: var(--navy-soft);
+    color: var(--blue-soft);
     letter-spacing: 0.04em;
     margin-top: 6px;
   }
 
-  /* ---------- Card grid ---------- */
+  /* ---------- Grid ---------- */
   .grid{
     display: grid;
-    grid-template-columns: repeat(var(--cols, 3), 1fr);
-    gap: 18px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 
+  /* ---------- Glass card ---------- */
   .card{
     position: relative;
     display: flex;
     flex-direction: column;
     gap: 14px;
     padding: 26px;
-    background:
-      linear-gradient(160deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6)),
-      linear-gradient(135deg, rgba(36,84,199,0.10), rgba(78,123,224,0.08));
-    backdrop-filter: blur(6px);
-    border: 1px solid rgba(255,255,255,0.6);
+    background: linear-gradient(135deg, rgba(255,255,255,0.40), rgba(255,255,255,0.12));
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.55);
     border-radius: var(--radius);
-    box-shadow: 0 18px 40px -22px rgba(36,84,199,0.35);
+    box-shadow:
+      0 20px 45px -20px rgba(31,38,135,0.35),
+      inset 0 1px 0 rgba(255,255,255,0.7),
+      inset 0 -1px 12px rgba(255,255,255,0.15);
     text-decoration: none;
     color: inherit;
     overflow: hidden;
-    opacity: 0;
-    transform: translateY(10px);
-    animation: rise 0.5s ease forwards;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    animation: rise 0.5s ease backwards;
+    transition: border-color 0.25s ease;
+  }
+
+  /* ガラス面を斜めに走る反射光 */
+  .card::before{
+    content: "";
+    position: absolute;
+    top: -60%;
+    left: -20%;
+    width: 60%;
+    height: 220%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 70%);
+    transform: rotate(20deg);
+    pointer-events: none;
+  }
+
+  .card > *{ position: relative; z-index: 1; }
+
+  /* ホバーは枠の着色のみ（リンクカードだけ。プロフィールは対象外） */
+  a.card:hover,
+  a.card:focus-visible{
+    border-color: rgba(78,123,224,0.85);
+  }
+
+  a.card:focus-visible{
+    outline: 2px solid var(--blue-soft);
+    outline-offset: 2px;
   }
 
   .icon{
-    width: 46px; height: 46px;
+    flex: none;
+    width: 46px;
+    height: 46px;
     padding: 10px;
     color: #fff;
-    background: linear-gradient(135deg, #EAF1FF 0%, var(--blue) 80%);
+    background: linear-gradient(135deg, var(--blue-soft), var(--blue));
     border-radius: 14px;
-    box-shadow: 0 8px 18px -8px rgba(36,84,199,0.6);
+    box-shadow: 0 8px 18px -8px rgba(36,84,199,0.55);
   }
   .icon svg{ width: 100%; height: 100%; }
 
   .card .name{
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', 'Noto Sans JP', sans-serif;
     font-weight: 600;
     font-size: 17px;
   }
 
   .card .handle{
-    font-family: 'Noto Sans JP', sans-serif;
     font-size: 13px;
     color: var(--ink-soft);
-    margin-top: -12px;
+    margin-top: 2px;
   }
 
   .card .desc{
     font-size: 13px;
     color: var(--ink-soft);
     line-height: 1.7;
+    margin-top: 14px;
   }
 
-  /* ---------- Profile card ---------- */
-  .profile-card{
+  /* ---------- Wide card（2列分） ---------- */
+  .card.wide{
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .card.wide .desc{ margin-top: 10px; }
+
+  /* 村野製作所カードのアイコンは大きめに */
+  .card.wide .icon{
+    width: 72px;
+    height: 72px;
+    padding: 9px;
+    border-radius: 21px;
+  }
+
+  /* ---------- Profile card（全幅） ---------- */
+  .card.profile-card{
     grid-column: 1 / -1;
     flex-direction: row;
     align-items: center;
     gap: 24px;
     cursor: default;
-  }
-
-  .profile-card:hover,
-  .profile-card:focus-visible{
-    transform: none;
-    box-shadow: 0 18px 40px -22px rgba(36,84,199,0.35);
   }
 
   .avatar{
@@ -160,7 +197,8 @@
     height: 72px;
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 0 8px 18px -8px rgba(36,84,199,0.6);
+    border: 2px solid rgba(255,255,255,0.7);
+    box-shadow: 0 8px 18px -8px rgba(36,84,199,0.55);
   }
 
   .avatar img{
@@ -173,7 +211,7 @@
   .avatar-fallback{
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #EAF1FF 0%, var(--blue) 80%);
+    background: linear-gradient(135deg, var(--blue-soft), var(--blue));
     color: #fff;
     display: none;
     align-items: center;
@@ -186,13 +224,13 @@
   .profile-text{ text-align: left; }
 
   .profile-name{
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', 'Noto Sans JP', sans-serif;
     font-weight: 700;
     font-size: 20px;
   }
 
   .profile-tagline{
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', 'Noto Sans JP', sans-serif;
     font-weight: 500;
     font-size: 13px;
     color: var(--blue-soft);
@@ -203,30 +241,12 @@
     font-size: 14px;
     color: var(--ink-soft);
     line-height: 1.8;
-    text-align: left;
     margin: 10px 0 0;
   }
 
-  @media (max-width: 520px){
-    .profile-card{
-      flex-direction: column;
-      text-align: center;
-    }
-    .profile-text{ text-align: center; }
-  }
-
-  .card:hover,
-  .card:focus-visible{
-    transform: translateY(-4px);
-    box-shadow: 0 26px 50px -20px rgba(36,84,199,0.45);
-  }
-
-  .card:focus-visible{
-    outline: 2px solid var(--navy);
-    outline-offset: 2px;
-  }
-
+  /* ---------- Animation ---------- */
   @keyframes rise{
+    from{ opacity: 0; transform: translateY(10px); }
     to{ opacity: 1; transform: translateY(0); }
   }
 
@@ -246,11 +266,29 @@
   }
 
   @media (prefers-reduced-motion: reduce){
-    .card{ animation: none; opacity: 1; transform: none; }
+    .card{ animation: none; transition: none; }
+  }
+
+  /* ---------- Responsive ---------- */
+  /* 2列グリッド: 村野製作所(2列分=全幅) / X + note / Apps + Apps */
+
+  @media (max-width: 520px){
+    .card.profile-card{
+      flex-direction: column;
+      text-align: center;
+    }
+    .profile-text{ text-align: center; }
   }
 
   @media (max-width: 420px){
     .grid{ grid-template-columns: 1fr; }
+    .card.wide{
+      grid-column: auto;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 14px;
+    }
+    .card.wide .desc{ margin-top: 14px; }
   }
 </style>
 </head>
@@ -267,8 +305,7 @@
   <main class="grid" id="linkGrid">
     <div class="card profile-card">
       <div class="avatar">
-        <img src="https://unavatar.io/x/airmiya" alt="airmiya"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <img src="https://unavatar.io/x/airmiya?fallback=false" alt="airmiya">
         <div class="avatar-fallback">A</div>
       </div>
       <div class="profile-text">
@@ -284,7 +321,18 @@
 </div>
 
 <script>
+  // リンクの追加・削除はこの配列を編集します。
+  // wide: true を付けたカードは2列分の幅で表示されます。
   const links = [
+    {
+      name: "村野製作所",
+      handle: "Murano Seisakusho",
+      desc: "『ゼロからつくる日野下インストール』ボトムアップ型AIの未来と可能性<br>日野下花帆の人格を、AIで再現できるのか。その問いに技術の側から向き合う一冊です。<br>コミックマーケット109 1日目（12/29）西2 い31b",
+      url: "https://airmiya.jp/murano/",
+      sameTab: true, // 同一サイト内のページなので同じタブで開く
+      wide: true,
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2.5h6"/><path d="M10.2 2.5v5.6L3.7 18.6A2 2 0 0 0 5.4 21.6h13.2a2 2 0 0 0 1.7-3L13.8 8.1V2.5"/><path d="M7.95 11.7c1.4-1.3 2.6-1.3 4.05 0s2.6 1.3 4.05 0"/><path d="M10 14.9L8.2 17l1.8 2.1M14 14.9L15.8 17l-1.8 2.1M13.1 14.4l-2 5.2"/></svg>`
+    },
     {
       name: "X",
       handle: "@airmiya",
@@ -315,31 +363,47 @@
     }
   ];
 
-  const grid = document.getElementById('linkGrid');
+  // プロフィールアイコン: Xのアイコンを unavatar 経由で取得。
+  // 取得できなければ次の取得元を試し、最後は頭文字の表示にフォールバックする。
+  (function(){
+    const img = document.querySelector('.avatar img');
+    const fb = document.querySelector('.avatar-fallback');
+    const sources = [
+      'https://unavatar.io/x/airmiya?fallback=false',
+      'https://unavatar.io/twitter/airmiya?fallback=false'
+    ];
+    let i = 0;
+    const next = () => {
+      i += 1;
+      if (i < sources.length){
+        img.src = sources[i];
+      } else {
+        img.style.display = 'none';
+        fb.style.display = 'flex';
+      }
+    };
+    img.addEventListener('error', next);
+    // スクリプト実行前にすでに失敗していた場合の取りこぼし対策
+    if (img.complete && img.naturalWidth === 0) next();
+  })();
 
-  // カード枚数に応じて最もバランスの良い列数を決める
-  // 優先順位: maxCols から下に向かって「割り切れる」列数を探す。
-  // 見つからなければ maxCols（余りは最終行が埋まらない形で表示される）
-  function chooseColumns(count, maxCols = 3){
-    if (count <= 1) return 1;
-    for (let cols = maxCols; cols >= 2; cols--){
-      if (count % cols === 0) return cols;
-    }
-    return Math.min(count, maxCols);
-  }
-  grid.style.setProperty('--cols', chooseColumns(links.length, 3));
+  const grid = document.getElementById('linkGrid');
 
   links.forEach(link => {
     const a = document.createElement('a');
-    a.className = 'card';
+    a.className = 'card' + (link.wide ? ' wide' : '');
     a.href = link.url;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
+    if (link.sameTab !== true){
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+    }
     a.innerHTML = `
       <div class="icon">${link.icon}</div>
-      <div class="name">${link.name}</div>
-      <div class="handle">${link.handle}</div>
-      <div class="desc">${link.desc}</div>
+      <div class="body">
+        <div class="name">${link.name}</div>
+        <div class="handle">${link.handle}</div>
+        <div class="desc">${link.desc}</div>
+      </div>
     `;
     grid.appendChild(a);
   });
