@@ -79,7 +79,7 @@ document.documentElement.classList.add("js");
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-padding-top:72px}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:88px}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 body{
   margin:0;background:var(--paper);color:var(--ink);
@@ -109,7 +109,7 @@ a:hover{text-decoration-thickness:2px}
 .site-header{background:#f7f7f7;border-bottom:1px solid var(--line)}
 .site-header .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 24px}
 .brand{
-  font-family:var(--serif);font-weight:900;font-size:1.0625rem;letter-spacing:.06em;
+  font-family:var(--serif);font-weight:900;font-size:1.59375rem;letter-spacing:.06em;  /* 1.0625rem×1.5 */
   -webkit-text-stroke:.025em currentColor;  /* 太字がない環境でも一段太く見せる */
   text-decoration:none;padding:14px 0;
   color:#5383c3;  /* ロゴ（村野製作所）の色 */
@@ -437,13 +437,17 @@ a:hover{text-decoration-thickness:2px}
 .site-footer .wrap{display:grid;gap:16px}
 .site-footer p{max-width:none;line-height:1.85;text-wrap:pretty}
 .site-footer .fine{color:var(--ink-3);font-size:.8125rem}
+.site-footer .notes{display:grid;gap:2px}                 /* 注意書き（ファン制作物の一文以外）：小さく・淡く・行間を詰める */
+.site-footer .notes p{line-height:1.6}
 .to-top{display:block;padding:8px 0;text-align:right}
 .to-top-ico{width:.7em;height:.7em;margin-right:.5em;vertical-align:.05em}  /* 頭の▲アイコン */
 .site-footer .copy{text-align:right}
-.author{border-top:1px solid #d4d4d4;padding-top:16px}
+.author{border-bottom:1px solid #d4d4d4;padding-bottom:16px}
 .author-name{font-weight:700;color:var(--ink);margin-bottom:6px}
 .author-links{display:flex;flex-wrap:wrap;gap:4px 20px;margin:0;padding:0;list-style:none}
-.author-links a{display:inline-block;padding:6px 0;color:var(--ink)}
+.author-links a{display:inline-flex;align-items:center;gap:.45em;padding:6px 0;color:var(--ink)}
+.author-links .ico{width:1.2em;height:1.2em;flex:none;object-fit:contain}
+.author-links svg.ico{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .site-footer a,.site-footer a:hover{text-decoration:none}  /* フッターのリンクは下線なし */
 
 @media print{
@@ -893,14 +897,16 @@ a:hover{text-decoration-thickness:2px}
 
 <footer class="site-footer">
   <div class="wrap">
-    <p><strong>本ページおよび頒布物は、非公式のファン制作物です。</strong></p>
-    <p>公式・関連企業・権利者とは一切関係がありません。</p>
-    <p>『ラブライブ！』シリーズに関する名称・キャラクター等の権利は、各権利者に帰属します。<br>本ページには公式の画像・ロゴを使用していません。</p>
-    <p class="fine" id="tm-note" hidden>X、LINE は、それぞれ各社の商標または登録商標です。</p>
     <nav class="author" id="author" aria-label="著者のリンク" hidden>
       <p class="author-name">著者：airmiya／えあみや（村野製作所）</p>
       <ul class="author-links"></ul>
     </nav>
+    <p><strong>本ページおよび頒布物は、非公式のファン制作物です。</strong></p>
+    <div class="notes">
+      <p class="fine">公式・関連企業・権利者とは一切関係がありません。</p>
+      <p class="fine">『ラブライブ！』シリーズに関する名称・キャラクター等の権利は、各権利者に帰属します。<br>本ページには公式の画像・ロゴを使用していません。</p>
+      <p class="fine" id="tm-note" hidden>X、LINE、note は、それぞれ各社の<span style="white-space:nowrap">商標または登録商標です。</span></p>
+    </div>
     <p class="fine copy">&copy; 村野製作所</p>
     <a class="to-top" href="#top"><svg class="to-top-ico" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 2 11 10H1Z" fill="currentColor"/></svg>ページの先頭へ戻る</a>
   </div>
@@ -918,9 +924,11 @@ var SITE = {
   url:   "https://airmiya.jp/murano", // 公開ページURL（https:// から）
   cover: { src: "", alt: "" },      // 表紙画像。例：{ src:"cover.jpg", alt:"『ゼロからつくる日野下インストール』表紙" }
   author: [                         // 著者リンク（フッター）。href が空の項目は自動で非表示
-    { label: "公式サイト", href: "https://airmiya.jp" },
-    { label: "X",          href: "https://x.com/airmiya" },
-    { label: "note",       href: "https://note.com/airmiya" }
+    // icon: "site" / "memo" / "link"（内蔵の汎用アイコン）、"x"（share.logos.x のロゴ）、
+    //       または SVG/PNG のパス・URL（例："images/note_logo.svg"）を入れると差し替わります。空なら文字だけ。
+    { label: "公式サイト", href: "https://airmiya.jp",       icon: "site" },
+    { label: "@airmiya",   href: "https://x.com/airmiya",    icon: "x",    aria: "X（airmiya）" },
+    { label: "note",       href: "https://note.com/airmiya", icon: "https://airmiya.jp/murano/images/note_logo.svg" }
   ],
   sns:   [                          // 例：{ label:"X（@account）", href:"https://x.com/account" }
     { label: "X（airmiya）", href: "https://x.com/airmiya" }
@@ -1096,12 +1104,27 @@ var SITE = {
     }
     box.hidden = false;
     // 著者リンク（フッター）
+    // 内蔵の汎用アイコン（各サービスのロゴではありません）。stroke=currentColor
+    var AU_ICONS = {
+      site: '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/>',
+      memo: '<path d="M5 3.5h11l3 3V20.5H5z"/><path d="M8.5 9h7M8.5 13h7M8.5 17h4"/>',
+      link: '<path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>'
+    };
     var au = (SITE.author || []).filter(function(a){ return a && a.label && isHttp(a.href); });
     if(au.length){
       var ul = document.querySelector("#author .author-links");
       au.forEach(function(a){
         var li = document.createElement("li"), l = document.createElement("a");
-        l.href = a.href; l.textContent = a.label; l.rel = "noopener"; l.target = "_blank";
+        l.href = a.href; l.rel = "noopener"; l.target = "_blank";
+        var ic = a.icon === "x" ? (LOGOS.x || "link") : a.icon;      // "x" はシェアボタンと同じ公式ロゴ（未設定なら汎用）
+        if(a.icon === "x" && LOGOS.x) usedLogo = true;
+        if(ic && AU_ICONS[ic]){
+          l.insertAdjacentHTML("afterbegin", '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + AU_ICONS[ic] + '</svg>');
+        } else if(ic){
+          var im = new Image(); im.className = "ico"; im.src = ic; im.alt = ""; im.width = 20; im.height = 20; l.appendChild(im); usedLogo = true;
+        }
+        l.appendChild(document.createTextNode(a.label));
+        if(a.aria) l.setAttribute("aria-label", a.aria);
         li.appendChild(l); ul.appendChild(li);
       });
       document.getElementById("author").hidden = false;
