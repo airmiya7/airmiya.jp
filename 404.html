@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>404 Not Found | airmiya.jp</title>
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#EAEEF7">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #F7F5EF;
     --ink: #1C1B19;
-    --ink-soft: #5B584F;
-    --navy: #1B2A56;
+    --ink-soft: #4A4843;
     --blue: #2454C7;
     --blue-soft: #4E7BE0;
+    --radius: 26px;
   }
 
   *{ box-sizing: border-box; }
@@ -28,84 +28,125 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg);
-    background-image:
-      radial-gradient(560px 420px at 8% -8%, rgba(36,84,199,0.16), transparent 65%),
-      radial-gradient(620px 480px at 100% 8%, rgba(78,123,224,0.16), transparent 60%),
-      radial-gradient(700px 520px at 50% 100%, rgba(36,84,199,0.10), transparent 65%);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
     color: var(--ink);
     font-family: 'Noto Sans JP', sans-serif;
+    background:
+      radial-gradient(640px 480px at 6% -6%, rgba(36,84,199,0.55), transparent 60%),
+      radial-gradient(560px 480px at 96% 6%, rgba(78,123,224,0.45), transparent 58%),
+      radial-gradient(620px 520px at 30% 95%, rgba(120,70,220,0.35), transparent 60%),
+      radial-gradient(560px 480px at 90% 92%, rgba(30,170,160,0.35), transparent 58%),
+      linear-gradient(180deg, #EFF2F8 0%, #E4E8F3 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
   .wrap{
-    max-width: 560px;
+    width: 100%;
+    max-width: 480px;
     margin: 0 auto;
     padding: 24px;
+  }
+
+  /* すりガラスのパネルに 404 を載せる */
+  .panel{
+    position: relative;
+    padding: 44px 32px 40px;
     text-align: center;
+    background: linear-gradient(135deg, rgba(255,255,255,0.40), rgba(255,255,255,0.12));
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: var(--radius);
+    box-shadow:
+      0 20px 45px -20px rgba(31,38,135,0.35),
+      inset 0 1px 0 rgba(255,255,255,0.7),
+      inset 0 -1px 12px rgba(255,255,255,0.15);
+    overflow: hidden;
+  }
+
+  .panel::before{
+    content: "";
+    position: absolute;
+    top: -60%;
+    left: -20%;
+    width: 60%;
+    height: 220%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 70%);
+    transform: rotate(20deg);
+    pointer-events: none;
+  }
+
+  .panel > *{ position: relative; z-index: 1; }
+
+  .hero{
+    margin-bottom: 32px;
   }
 
   .hero h1{
     display: inline-block;
-    position: relative;
     font-family: 'Noto Sans JP', sans-serif;
     font-weight: 700;
     font-size: clamp(26px, 5vw, 38px);
-    margin: 0 0 14px;
+    margin: 0 0 10px;
     letter-spacing: 0.02em;
     color: var(--ink);
-    text-shadow:
-      0 1px 0 rgba(255,255,255,0.85),
-      0 -1px 1px rgba(27,42,86,0.28);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.9);
   }
 
   .hero p{
-    font-size: 14px;
-    color: var(--ink-soft);
-    line-height: 1.9;
-    margin: 0 0 32px;
+    margin: 0;
   }
 
   .hero .en{
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     font-size: 13px;
-    color: var(--navy-soft);
+    color: var(--blue-soft);
     letter-spacing: 0.04em;
+    margin-top: 6px;
   }
 
   .home-link{
     display: inline-flex;
     align-items: center;
-    gap: 8px;
     padding: 13px 28px;
-    background: linear-gradient(135deg, #EAF1FF 0%, var(--blue) 80%);
+    background: linear-gradient(135deg, var(--blue-soft), var(--blue));
     color: #fff;
     text-decoration: none;
     border-radius: 999px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
     font-size: 14px;
-    box-shadow: 0 14px 30px -14px rgba(36,84,199,0.55);
+    box-shadow: 0 14px 30px -14px rgba(36,84,199,0.6);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .home-link:hover,
   .home-link:focus-visible{
     transform: translateY(-3px);
-    box-shadow: 0 20px 40px -16px rgba(36,84,199,0.6);
+    box-shadow: 0 20px 40px -16px rgba(36,84,199,0.65);
+  }
+
+  .home-link:focus-visible{
+    outline: 2px solid var(--blue-soft);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .home-link{ transition: none; }
   }
 </style>
 </head>
 <body>
 
 <div class="wrap">
-  <div class="hero">
-    <h1>404</h1>
-    <p class="en">Page not found</p>
+  <div class="panel">
+    <div class="hero">
+      <h1>404</h1>
+      <p class="en">Page not found</p>
+    </div>
+    <a class="home-link" href="/">トップページへ戻る</a>
   </div>
-  <a class="home-link" href="/">トップページへ戻る</a>
 </div>
 
 </body>
