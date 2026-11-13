@@ -79,7 +79,7 @@ document.documentElement.classList.add("js");
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-padding-top:88px}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:var(--header-h,76px)}  /* ヘッダー下端の線にセクション上端の線を重ねる（JSで実測して --header-h を更新） */
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 body{
   margin:0;background:var(--paper);color:var(--ink);
@@ -113,6 +113,7 @@ a:hover{text-decoration-thickness:2px}
   -webkit-text-stroke:.025em currentColor;  /* 太字がない環境でも一段太く見せる */
   text-decoration:none;padding:14px 0;
   color:#5383c3;  /* ロゴ（村野製作所）の色 */
+  text-shadow:1px 1px 0 #fff;   /* 白い1pxの影（彫り込み風）。色は変えない */
 }
 .nav{display:flex;flex-wrap:wrap;gap:0 4px;margin-inline:-8px}
 .nav a{
@@ -250,12 +251,15 @@ a:hover{text-decoration-thickness:2px}
 }
 /* 日本語タイトルと英語タイトルの間にアクセントの横線（独立した要素なので、ブラウザ・フォントによるズレが出ない） */
 .section-head h2::after{
-  --rule-h:5px;            /* 線の太さ */
-  --rule-gap:10px;         /* 日本語タイトル・英語タイトルとの間隔 */
-  content:"";display:block;height:var(--rule-h);margin-block:var(--rule-gap) calc(var(--rule-gap) - 6px);
+  /* すべて見出し文字サイズ（PC 32px／スマホ 26px）に対する比率(em)。画面が変わっても同じ比率で伸縮する。
+     PC換算：太さ 5px／上 1px／下 3px */
+  --rule-h:.156em;         /* 線の太さ */
+  --rule-top:.031em;       /* 日本語タイトルとの間隔（上）＝PC 1px */
+  --rule-bottom:.094em;    /* 英語タイトルとの間隔（下）＝PC 3px */
+  content:"";display:block;height:var(--rule-h);margin-block:var(--rule-top) var(--rule-bottom);
   background:var(--accent);
 }
-.section-head .en{margin-top:6px;font-size:.875rem;color:var(--ink-3)}
+.section-head .en{margin-top:0;font-size:.875rem;color:var(--ink-3)}
 
 .prose > * + *{margin-top:1.4em}
 .prose{max-width:none}
@@ -297,7 +301,12 @@ a:hover{text-decoration-thickness:2px}
 .diagram-title{font-family:var(--serif);font-weight:700;font-size:1.0625rem;margin-bottom:16px}
 
 /* stack: six elements of personality */
-.stack{border:1px solid var(--line-strong);background:var(--paper)}
+/* 外枠は各項目が持つ（項目が現れるたびに、その分の枠も一緒に描かれる。アニメーション版で枠だけ先に出ないように） */
+.stack{border:0}
+.stack ol > li,.stack .base{border-left:1px solid var(--line-strong);border-right:1px solid var(--line-strong)}
+.stack ol > li{background:var(--paper)}
+.stack ol > li:first-child{border-top:1px solid var(--line-strong)}
+.stack .base{border-bottom:1px solid var(--line-strong)}
 .stack ol{display:flex;flex-direction:column}
 .stack li{
   display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:4px 16px;align-items:baseline;
@@ -306,7 +315,7 @@ a:hover{text-decoration-thickness:2px}
 .stack li:last-child{border-bottom:0}
 .stack .name{font-family:var(--serif);font-weight:700;font-size:1.0625rem;line-height:1.5}
 .stack .gloss{font-size:.875rem;color:var(--ink-2);line-height:1.7}
-.stack li.top{background:var(--ink);color:var(--paper)}
+.stack ol > li.top{background:var(--ink);color:var(--paper)}
 .stack li.top .gloss{color:#dcdcdc}
 .stack .base{
   background:var(--wash);border-top:2px solid var(--line-strong);
@@ -382,9 +391,11 @@ a:hover{text-decoration-thickness:2px}
 .tech dd p + p{margin-top:.8em}
 .tech .role{font-size:.9375rem;color:var(--ink-2)}
 
-.cond{margin-top:28px;border:1px solid var(--line-strong);background:var(--paper)}
+.cond{margin-top:28px}   /* 外枠は各行が持つ（行が現れるたびに枠も描かれる） */
 .cond-row{display:grid;grid-template-columns:2.5em minmax(0,1fr);gap:0 12px;padding:12px 16px;border-bottom:1px solid var(--line);align-items:baseline}
-.cond-row:last-child{border-bottom:0}
+.cond-row{border-left:1px solid var(--line-strong);border-right:1px solid var(--line-strong);background:var(--paper)}
+.cond-row:first-child{border-top:1px solid var(--line-strong)}
+.cond-row:last-child{border-bottom:1px solid var(--line-strong)}
 .cond-row b{font-family:var(--serif);font-size:1.0625rem}
 .cond-row span{font-size:.9375rem}
 .cond-row.last{background:var(--wash)}
@@ -417,7 +428,8 @@ a:hover{text-decoration-thickness:2px}
 .info dd.strong{font-weight:700;font-size:1.375rem}
 .info dd small{display:block;font-weight:400;font-family:var(--sans);font-size:.8125rem;color:var(--ink-3);margin-top:2px}
 .links{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--sans) !important;font-size:1rem !important}
-.links a{display:inline-block;padding:6px 0}
+.links a{display:inline-flex;align-items:center;gap:.45em;padding:6px 0}
+.links .ico{width:1.2em;height:1.2em;flex:none;object-fit:contain}
 /* 公開ページ・お知らせのリンクは下線なし（配置の .space-link は下線あり） */
 .info dd a:not(.space-link){text-decoration:none}
 
@@ -656,6 +668,7 @@ a:hover{text-decoration-thickness:2px}
         <span class="place-label">コミックマーケットC109（2026年冬）</span>
         <span class="place-main"><a class="space-link" href="https://webcatalog-auth.circle.ms/Perma/Circle/10526929/" target="_blank" rel="noopener noreferrer" aria-label="1日目（火）西2 い31b（コミケWebカタログのサークルページを新しいタブで開く）">1日目（火）西2 い31b</a></span>
         <span class="place-sub">サークル名　村野製作所</span>
+        <span class="place-sub">著者　airmiya／えあみや</span>
       </div>
 
       <div class="hero-cta">
@@ -869,9 +882,10 @@ a:hover{text-decoration-thickness:2px}
     <div>
       <dl class="info">
         <div><dt>サークル名</dt><dd>村野製作所</dd></div>
+        <div><dt>著者</dt><dd>airmiya／えあみや</dd></div>
         <div><dt>イベント</dt><dd>コミックマーケットC109（2026年冬）</dd></div>
         <div data-optional="date" hidden><dt>開催日</dt><dd data-field="date"></dd></div>
-        <div><dt>配置</dt><dd class="strong"><a class="space-link" href="https://webcatalog-auth.circle.ms/Perma/Circle/10526929/" target="_blank" rel="noopener noreferrer" aria-label="1日目（火）西2 い31b（コミケWebカタログのサークルページを新しいタブで開く）">1日目（火）　西2 い31b</a><small>配置をタップすると、コミケWebカタログのサークルページを開きます。</small></dd></div>
+        <div><dt>配置</dt><dd class="strong"><a class="space-link" href="https://webcatalog-auth.circle.ms/Perma/Circle/10526929/" target="_blank" rel="noopener noreferrer" aria-label="1日目（火）西2 い31b（コミケWebカタログのサークルページを新しいタブで開く）">1日目（火）西2 い31b</a><small>配置をタップすると、コミケWebカタログのサークルページを開きます。</small></dd></div>
         <div><dt>ジャンル</dt><dd>ラブライブ！</dd></div>
         <div><dt>頒布物</dt><dd>ゼロからつくる日野下インストール<small>ボトムアップ型AIの未来と可能性</small></dd></div>
         <div data-optional="price" hidden><dt>頒布価格</dt><dd data-field="price"></dd></div>
@@ -931,7 +945,7 @@ var SITE = {
     { label: "note",       href: "https://note.com/airmiya", icon: "https://airmiya.jp/murano/images/note_logo.svg" }
   ],
   sns:   [                          // 例：{ label:"X（@account）", href:"https://x.com/account" }
-    { label: "X（airmiya）", href: "https://x.com/airmiya" }
+    { label: "@airmiya", href: "https://x.com/airmiya", icon: "x", aria: "X（airmiya）" }   // icon:"x" ＝Xの公式ロゴ（share.logos.x）／SVG・PNGのパスも可
   ],
   share: {                          // 共有ボタン。text＝投稿文、hashtags＝["C109"] のように（#は不要）
     text: "ゼロからつくる日野下インストール｜村野製作所　コミックマーケットC109（2026年冬）1日目 西2 い31b",
@@ -964,6 +978,27 @@ var SITE = {
   });
   var onChange = function(){ if(mq.matches) set(false); };
   if(mq.addEventListener) mq.addEventListener("change", onChange); else mq.addListener(onChange);
+})();
+
+/* NAVのリンクで移動したとき、ヘッダー下の線とセクション上端の線を重ねる：
+   ヘッダーの実際の高さ（メニューを閉じた状態）−線の太さを測って scroll-padding-top に反映 */
+(function(){
+  var header = document.querySelector(".site-header");
+  if(!header) return;
+  var nav = document.getElementById("site-nav"), btn = document.querySelector(".menu-btn");
+  function update(){
+    var h = header.getBoundingClientRect().height;
+    // スマホでメニューが開いている間は、開いた分を除いた高さ（閉じた状態）を使う
+    if(btn && nav && nav.classList.contains("open") && getComputedStyle(btn).display !== "none") h -= nav.getBoundingClientRect().height;
+    // ヘッダー下の線（border-bottom）の太さ分だけ手前で止め、セクション上端の線をヘッダーの線と重ねて1本に見せる
+    h -= (parseFloat(getComputedStyle(header).borderBottomWidth) || 0) + 0.5;   // +0.5：小数の丸め誤差でセクションの線が1px下にはみ出さないための余裕
+    document.documentElement.style.setProperty("--header-h", h + "px");
+  }
+  update();
+  window.addEventListener("resize", update);
+  window.addEventListener("load", update);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(update);
+  if(window.ResizeObserver) new ResizeObserver(update).observe(header);
 })();
 
 (function(){
@@ -1011,7 +1046,11 @@ var SITE = {
     snsList.forEach(function(s){
       var li = document.createElement("li");
       var a = document.createElement("a");
-      a.href = s.href; a.textContent = s.label; a.rel = "noopener noreferrer";
+      a.href = s.href; a.rel = "noopener noreferrer";
+      var logo = s.icon === "x" ? ((SITE.share && SITE.share.logos && SITE.share.logos.x) || "") : (s.icon || "");
+      if(logo){ var im = new Image(); im.className = "ico"; im.src = logo; im.alt = ""; im.width = 20; im.height = 20; a.appendChild(im); }
+      a.appendChild(document.createTextNode(s.label));
+      if(s.aria) a.setAttribute("aria-label", s.aria);
       li.appendChild(a); ul.appendChild(li);
     });
     document.querySelector('[data-optional="sns"]').hidden = false;
